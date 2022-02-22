@@ -1,0 +1,9 @@
+
+TODOS for every new project:
+ . Add container settings and container gutter width 
+ . Add color variables
+ . Add color primary, secondary and background variables
+ . Add font-family variable
+ . Add mixins for font
+ . Add default font-sizes for headings and text
+ . Add web fonts. Confirm they are working

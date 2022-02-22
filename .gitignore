@@ -1,0 +1,24 @@
+# Node
+node_modules
+test/results
+test/coverage
+
+## OS X
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# Dist
+dist
+
+# idea files
+.idea
+debug.log
+
+*.sublime-project
+*.sublime-workspace
+
+# Generated scss data
+src/sass/generated/_svg-sprite.scss
+src/sass/mixins/_sprite.scss

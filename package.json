@@ -1,0 +1,92 @@
+{
+	"name": "project-name",
+	"version": "0.0.1",
+	"description": "A description for your project.",
+	"main": "./dist/your-main-js-file.js",
+	"author": {
+		"name": "YOUR NAME",
+		"url": "http://link-to-your-website.com"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "http://link-to-your-git-repo.com"
+	},
+	"boilerplate": {
+		"version": "2.2.5",
+		"author": "Chris Ferdinandi",
+		"url": "https://gomakethings.com",
+		"repo": "http://github.com/cferdinandi/gulp-boilerplate"
+	},
+	"browserslist": [
+		"defaults",
+		"ie 11"
+	],
+	"devDependencies": {
+		"@types/aos": "^3.0.3",
+		"@types/swiper": "^5.2.0",
+		"autoprefixer": "^9.7.3",
+		"browser-sync": "2.26.7",
+		"cheerio": "^1.0.0-rc.3",
+		"cssnano": "4.1.10",
+		"del": "3.0.0",
+		"eslint": "^6.6.0",
+		"gulp-cache": "^1.1.3",
+		"gulp-changed": "^4.0.2",
+		"gulp-cheerio": "^1.0.0",
+		"gulp-concat": "2.6.1",
+		"gulp-consolidate": "^0.2.0",
+		"gulp-flatmap": "1.0.2",
+		"gulp-front-matter": "^1.3.0",
+		"gulp-header": "^2.0.9",
+		"gulp-html": "^1.1.0",
+		"gulp-if": "^3.0.0",
+		"gulp-imagemin": "^6.1.1",
+		"gulp-jshint": "2.1.0",
+		"gulp-nunjucks-render": "^2.2.3",
+		"gulp-optimize-js": "1.1.0",
+		"gulp-plumber": "^1.2.1",
+		"gulp-postcss": "8.0.0",
+		"gulp-prettify": "^0.5.0",
+		"gulp-rename": "1.4.0",
+		"gulp-stylelint": "^10.0.0",
+		"gulp-svgmin": "2.1.0",
+		"gulp-svgstore": "^7.0.1",
+		"gulp-template": "^5.0.0",
+		"gulp-terser": "1.1.7",
+		"gulp-useref": "^4.0.0",
+		"gulp.spritesmith": "^6.11.0",
+		"imagemin-giflossy": "^5.1.10",
+		"imagemin-mozjpeg": "^8.0.0",
+		"imagemin-pngquant": "^8.0.0",
+		"imagemin-zopfli": "^6.0.0",
+		"jshint": "2.9.6",
+		"jshint-stylish": "2.2.1",
+		"lazypipe": "1.0.1",
+		"merge-stream": "^2.0.0",
+		"postcss-sort-media-queries": "^1.0.13",
+		"stylelint": "^11.1.1",
+		"stylelint-config-recommended-scss": "^4.0.0",
+		"stylelint-scss": "^3.12.0",
+		"through2": "^3.0.1"
+	},
+	"resolutions": {
+		"lodash.template": "^4.5.0"
+	},
+	"dependencies": {
+		"@fancyapps/fancybox": "^3.5.7",
+		"@types/fancybox": "^3.5.2",
+		"@types/jquery": "^3.3.31",
+		"aos": "^3.0.0-beta.6",
+		"bootstrap": "^4.3.1",
+		"gulp": "^4.0.2",
+		"gulp-htmlhint": "^3.0.0",
+		"gulp-sass": "^5.0.0",
+		"jquery": "^3.4.1",
+		"normalize.css": "^8.0.1",
+		"sass": "^1.43.4",
+		"stylelint-config-standard": "^19.0.0",
+		"svg4everybody": "^2.1.9",
+		"swiper": "^6.5.1"
+	}
+}
