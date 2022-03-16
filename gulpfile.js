@@ -33,7 +33,7 @@ var paths = {
     output: "dist/js/"
   },
   html: {
-    input: "src/templates/**/*.html",
+    input: "src/templates/*.html",
     templatesDir: "src/templates/",
     watch: "src/templates/**/*.html",
     output: "dist/",
@@ -221,7 +221,7 @@ var getPagesData = path => {
     return { filePath: f, title }
   })
 
-  return pagesData
+  return pagesData;
 }
 
 // Build HTML

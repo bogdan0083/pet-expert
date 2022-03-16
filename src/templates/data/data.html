@@ -1,33 +1,113 @@
-{% set
-  list = [
-  {
-    title: 'Item1'
-  },
-  {
-    title: 'Item2'
-  }
-] %}
 
 {% set
-  promoSlides = [
+  primaryMenu = [
   {
-    title: 'Promo slider 1',
-    subtitle: 'promo subtitle 1',
-    buttonText: 'Join now!'
+    title: 'Решения',
+    id: "side-menu-item-12",
+    children: [
+      {
+        title: 'Пиво'
+      },
+      {
+        title: 'Вода'
+      },
+      {
+        title: 'Сидр'
+      },
+      {
+        title: 'Квас'
+      },
+      {
+        title: 'Вино'
+      },
+      {
+        title: 'Кофе'
+      }
+    ]
   },
   {
-    title: 'Promo slider 2',
-    subtitle: 'promo subtitle 2',
-    buttonText: 'Join now!!'
+    title: 'Продукция',
+    id: "side-menu-item-12",
+    children: [
+      {
+        title: 'PET-кеги'
+      },
+      {
+        title: 'PET-бутыли'
+      },
+      {
+        title: 'Преформы'
+      },
+      {
+        title: 'PET-бутылки'
+      },
+      {
+        title: 'Комплектующие'
+      },
+      {
+        title: 'PET-флаконы'
+      }
+    ]
   },
   {
-    title: 'Promo slider 3',
-    subtitle: 'promo subtitle 3',
-    buttonText: 'Join now!!!'
+    title: 'Клиентам',
+    id: "side-menu-item-2",
+    children: [
+      {
+        title: 'Ценообразование'
+      },
+      {
+        title: 'Поставка продукции'
+      },
+      {
+        title: 'Поддержка и сервис'
+      },
+      {
+        title: 'Вопросы и ответы'
+      },
+      {
+        title: 'Документы'
+      }
+    ]
   },
   {
-    title: 'Promo slider 4',
-    subtitle: 'promo subtitle 4',
-    buttonText: 'Join now!!!!'
+    title: 'Концепция',
+    id: "side-menu-item-3",
+    children: [
+      {
+        title: 'Качество'
+      },
+      {
+        title: 'Безопасность'
+      },
+      {
+        title: 'Доверие'
+      }
+    ]
+  },
+  {
+    title: 'Компания',
+    id: "side-menu-item-4",
+    children: [
+      {
+        title: 'Сертификаты'
+      },
+      {
+        title: 'Оборудование'
+      },
+      {
+        title: 'Новости'
+      },
+      {
+        title: 'Партнеры и отзывы'
+      },
+      {
+        title: 'Наша команда'
+      }
+    ]
+  },
+  {
+    title: 'Контакты',
+    children: false
   }
 ] %}

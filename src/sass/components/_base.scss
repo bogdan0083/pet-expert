@@ -1,23 +1,43 @@
-//@include font-face("Gilroy", "../fonts/Gilroy-Regular");
-//@include font-face("Gilroy", "../fonts/Gilroy-RegularItalic", normal, italic);
-//@include font-face("Gilroy", "../fonts/Gilroy-Bold", bold, normal);
-//@include font-face("Gilroy", "../fonts/Gilroy-BoldItalic", bold, italic);
-//@include font-face("Gilroy", "../fonts/Gilroy-Heavy", 900, normal);
-//@include font-face("Gilroy", "../fonts/Gilroy-HeavyItalic", 900, italic);
-//@include font-face("Gilroy", "../fonts/Gilroy-Medium", 500, normal);
-//@include font-face("Gilroy", "../fonts/Gilroy-MediumItalic", 500, italic);
-//@include font-face("Gilroy", "../fonts/Gilroy-Light", 300, normal);
-//@include font-face("Gilroy", "../fonts/Gilroy-LightItalic", 300, italic);
-//
-//@mixin gilroy($weight: null, $style: null) {
-//  font-family: "Gilroy", $font-family-base;
-//  font-weight: $weight;
-//  font-style: $style;
-//}
+@include font-face("Gerbera", "../fonts/Gerbera");
+@include font-face("Gerbera", "../fonts/Gerbera-RegularItalic", normal, italic);
+@include font-face("Gerbera", "../fonts/Gerbera-Bold", bold, normal);
+@include font-face("Gerbera", "../fonts/Gerbera-BoldItalic", bold, italic);
+@include font-face("Gerbera", "../fonts/Gerbera-Heavy", 900, normal);
+@include font-face("Gerbera", "../fonts/Gerbera-HeavyItalic", 900, italic);
+@include font-face("Gerbera", "../fonts/Gerbera-Medium", 500, normal);
+@include font-face("Gerbera", "../fonts/Gerbera-MediumItalic", 500, italic);
+@include font-face("Gerbera", "../fonts/Gerbera-Light", 300, normal);
+@include font-face("Gerbera", "../fonts/Gerbera-LightItalic", 300, italic);
+
+@mixin gerbera($weight: null, $style: null) {
+ font-family: "Gerbera", $font-family-sans-serif;
+ font-weight: $weight;
+ font-style: $style;
+}
 
 html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  font-size: 62.5%;
+  @include down('lg') {
+    font-size: 58.6%;
+  }
+
+  @include down('sm') {
+    font-size: 54.695%;
+  }
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1.6rem;
+  overflow-x: hidden;
+  overflow-y: visible;
+  background: #ffffff;
+  color: $text-primary;
+  @include gerbera();
 }
 
 // Change from `box-sizing: content-box` so that `width` is not affected by `padding` or `border`.
@@ -38,6 +58,7 @@ html {
 /* Base styles start */
 body {
   background-color: #f3f3f3;
+  overflow-x: hidden;
   min-width: 320px;
   //@include gilroy();
 }
@@ -63,12 +84,6 @@ img {
 
 /* Base styles end*/
 
-// enable container mixins. Disabled by default.
-//.container {
-//  @include make-container();
-//  @include make-container-max-widths();
-//}
-
 .container-flex {
   display: flex;
 }
@@ -79,6 +94,7 @@ img {
   border: none;
   fill: none;
   stroke: none;
+  @include tr((fill, stroke, color));
 }
 
 .mobile-nav-trigger {
@@ -104,55 +120,61 @@ img {
 }
 
 .button {
-  height: 60px;
-  line-height: 58px;
-  display: block;
-  width: 285px;
-  padding-left: 20px;
-  padding-right: 20px;
+  height: 4.1rem;
+  display: inline-flex;
+  padding-left: 28px;
+  padding-right: 28px;
   text-decoration: none;
-  transition: all 0.4s;
+  @include tr((background-color));
   border: none;
   font-size: 14px;
   font-weight: bold;
   text-align: center;
   background-color: $primary;
   color: $white;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1px;
   cursor: pointer;
   overflow: hidden;
   position: relative;
+  font-weight: 300;
+  font-size: 1.5rem;
+  &--theme-primary {
+    .button__text, .button__icon {
+      position: relative;
+      z-index: 1;
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: $linear-gradient-primary;
+      @include tr((opacity));
+    }
+    &:hover::before {
+      opacity: 0;
+    }
+  }
+
+  &--rounded {
+    border-radius: 888px;
+  }
 
   &:focus, &:hover {
     outline: none;
-    box-shadow: 0 0 10px 3px rgba($primary, 0.1);
+    text-decoration: none;
+    .button__text {
+      color: white;
+    }
   }
 
   .text {
     position: relative;
     z-index: 2;
-  }
-
-  &:before, .button-combined-main:before, .button-combined-right:before {
-    content: '';
-    background-color: $white;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    position: absolute;
-    transform: translateY(-113%);
-    transition: all 0.4s;
-    @include up('md') {
-      display: block;
-    }
-  }
-
-  &:hover {
-    color: $primary;
-
-    &:before {
-      transform: none;
-    }
   }
 }
 
@@ -224,67 +246,6 @@ img {
   }
 }
 
-.product-quantity {
-  width: 130px;
-  color: $black-secondary;
-  position: relative;
-  height: 40px;
-  line-height: 40px;
-  @include up('md') {
-    width: 160px;
-  }
-
-  &-substract, &-add {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    color: $black-secondary;
-    background-color: transparent;
-    border: 2px solid $black-secondary;
-    transition: all 0.4s;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    font-size: 30px;
-    font-weight: 500;
-    padding: 0;
-    cursor: pointer;
-
-    &:hover, &:active {
-      background-color: $primary;
-      border-color: $primary;
-      color: $white;
-    }
-
-    &:focus {
-      border-color: $primary;
-      outline: none;
-    }
-  }
-
-  &-input {
-    text-align: center;
-    background: transparent;
-    padding: 0;
-    width: 100%;
-    display: block;
-    height: 40px;
-    border: none;
-    box-shadow: none;
-    padding-left: 45px;
-    padding-right: 45px;
-    font-size: 22px;
-
-    &:focus {
-      outline: none;
-    }
-
-    @include up('lg') {
-      font-size: 31px;
-    }
-  }
-}
-
 .popup {
   width: 285px;
   z-index: 115;
@@ -314,7 +275,7 @@ img {
   .wrapper {
     position: relative;
     background-color: $white;
-    border: 1px solid $gray-secondary;
+    border: 1px solid $gray-800;
     padding: 40px 20px 20px;
     height: 100%;
     @include up('md') {
@@ -368,7 +329,7 @@ img {
     flex: 0 0 20px;
     width: 20px;
     height: 20px;
-    border: 1px solid $gray-secondary;
+    border: 1px solid $gray-800;
     border-radius: 4px;
     margin-left: 10px;
     display: flex;

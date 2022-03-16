@@ -1,5 +1,96 @@
+{% import "partials/_mixins.html" as mixins %}
 <!-- BEGIN header -->
 <header class="header">
-  <p>Hello from partials/_header.html</p>
+  <div class="header-top">
+    <div class="container">
+      <div class="header-wrap">
+        <!-- START header-logo -->
+        <a href="#" class="header-logo">
+          <svg width="150" height="33" viewBox="0 0 150 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="m88.72 11.5-8.95-9.02A8.38 8.38 0 0 0 70.63.65a8.38 8.38 0 0 0-2.72 1.83l-6.32 6.37a2.79 2.79 0 0 1-3.96 0l-6.31-6.37A8.38 8.38 0 0 0 42.17.65a8.38 8.38 0 0 0-2.72 1.83l-6.31 6.37a2.79 2.79 0 0 1-3.96 0l-6.32-6.37A8.38 8.38 0 0 0 13.72.65 8.38 8.38 0 0 0 11 2.48L2.05 11.5a7.1 7.1 0 0 0 0 9.99L11 30.52a8.38 8.38 0 0 0 9.14 1.83 8.38 8.38 0 0 0 2.72-1.83l6.3-6.38a2.8 2.8 0 0 1 3.95 0l6.32 6.38a8.38 8.38 0 0 0 9.14 1.83 8.38 8.38 0 0 0 2.72-1.83l6.32-6.38a2.79 2.79 0 0 1 3.95 0l6.32 6.38a8.38 8.38 0 0 0 9.14 1.83 8.38 8.38 0 0 0 2.72-1.83l8.95-9.03a7.1 7.1 0 0 0 .03-9.99Z"
+              fill="url(#a)" />
+            <path
+              d="M16.73 11.4c.44 0 .88.08 1.3.24a3.08 3.08 0 0 1 1.99 2.96c0 .43-.08.87-.24 1.27a2.87 2.87 0 0 1-1.71 1.65c-.43.16-.87.24-1.32.23h-1.07v3.84h-1.84V11.41h2.9Zm-1.05 2v2.35h1.33c.31 0 .61-.11.83-.32a1.1 1.1 0 0 0 .34-.84 1.14 1.14 0 0 0-.33-.84 1.1 1.1 0 0 0-.84-.35h-1.33Zm26.92-2h5.56v2.02h-3.72v1.93h3.3v2.01h-3.3v2.21h3.72v2.02h-5.55V11.4Zm27.36 0h7.78v2h-2.98v8.19h-1.85v-8.2h-2.95v-1.98ZM36.2 15.49H26.11v2.01H36.2v-2Zm28.46 0h-10.1v2.01h10.1v-2Z"
+              fill="#fff" />
+            <path
+              d="M102.8 11.4h5.56v2.02h-3.71v1.93h3.3v2.01h-3.3v2.21h3.71v2.02h-5.56V11.4Zm8.87 10.19h-2.25l3.4-5.26-3.2-4.92h2.19l2.1 3.23 2.09-3.23h2.24l-3.2 4.92 3.4 5.26h-2.19l-2.3-3.57-2.28 3.57ZM122.8 11.4c.43 0 .87.08 1.29.24a3.08 3.08 0 0 1 1.73 1.64 3.35 3.35 0 0 1 .02 2.59c-.16.37-.39.71-.68 1-.3.27-.65.5-1.03.64-.43.16-.88.24-1.33.23h-1.07v3.85h-1.84V11.4h2.9Zm-1.07 2v2.35h1.33a1.14 1.14 0 0 0 1.1-.7c.05-.15.08-.3.07-.46a1.18 1.18 0 0 0-.32-.84 1.11 1.11 0 0 0-.88-.35h-1.3Zm5.85-2h5.57v2.02h-3.73v1.93h3.3v2.01h-3.3v2.21h3.73v2.02h-5.57V11.4Zm7.58 0h3c.37 0 .75.07 1.1.18a2.68 2.68 0 0 1 1.66 1.48c.2.42.28.87.27 1.32.01.61-.16 1.22-.48 1.73-.34.5-.82.87-1.39 1.05l2.32 4.46h-2.06l-2.22-4.22H137v4.22h-1.84V11.41Zm1.84 2v2.09h1.31a1.01 1.01 0 0 0 .75-.28 1.03 1.03 0 0 0 .29-.76 1.03 1.03 0 0 0-.63-.98 1.01 1.01 0 0 0-.4-.07H137Zm5.23-2H150v2h-3v8.19h-1.84v-8.2h-2.93v-1.98Z"
+              fill="#1B2AC9" />
+            <defs>
+              <linearGradient id="a" x1="0" y1="16.5" x2="90.77" y2="16.5" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#0073F0" offset="0"/>
+                <stop offset="1" stop-color="#1B2AC9" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </a>
+        <!-- END header-logo -->
+
+        <!-- START header-search -->
+        <form class="header-search d-none d-lg-block">
+          <input type="text" placeholder="Поиск">
+          <button type="submit">{{mixins.icon('search')}}</button>
+        </form>
+        <!-- END header-search -->
+
+        <!-- START header-contact -->
+        <div class="header-contact">
+          <a href="tel:74995770006" class="header-contact--phone">+7(499) 577-00-06</a>
+          <a href="mailto:info@petexpert.pro" class="header-contact--email">info@petexpert.pro</a>
+          <a href="#" class="d-none d-lg-inline-flex button button--rounded button--theme-primary m-0">
+            <span class="button__text">
+              Обратная связь
+            </span>
+          </a>
+        </div>
+        <!-- END header-contact -->
+
+        <div class="header-toggle d-lg-none">
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="header-bottom">
+    <div class="container">
+      <!-- START header-menu -->
+      <nav class="menu">
+        <ul class="menu-list list-reset">
+
+          {% for i in data.primaryMenu %}
+          <!-- START menu-item -->
+          <li class="menu-item{% if i.children != false %} menu-item--has-submenu{% endif %}">
+            <a href="#"><span>{{i.title}}</span></a>
+            {% if i.children != false %}
+            <!-- START submenu -->
+            <div class="submenu submenu--2-cols">
+              <ul class="submenu-list list-reset">
+                {% for child in i.children %}
+                <li>
+                  <a href="#" class="submenu__link">
+                    <span class="submenu__link-text">{{child.title}}</span>
+
+                    <div class="submenu__link-circle" aria-hidden="true">
+                    </div>
+                    <div class="submenu__link-bg" aria-hidden="true">
+                      <img src="img/menu-bg.jpg" alt="{{child.title}}">
+                    </div>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <!-- END submenu -->
+            {% endif %}
+          </li>
+          <!-- END menu-item -->
+          {% endfor %}
+
+        </ul>
+      </nav>
+      <!-- END header-menu -->
+    </div>
+  </div>
 </header>
 <!-- END header -->

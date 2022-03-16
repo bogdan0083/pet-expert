@@ -5,31 +5,11 @@ title: Главная страница
 
 {% block content %}
 
-  {# variable example #}
-  <h1>{{ title }}</h1>
-
   {# data usage example #}
   {% import "data/data.html" as data %}
 
   {# header #}
   {% include "partials/_header.html" %}
-
-  {# mixin example #}
-  {{ mixins.icon('hamburger') }}
-
-  <!-- BEGIN promo-slider -->
-  <div class="promo-slider">
-    <div class="promo-slider-wrapper">
-      {% for slide in data.promoSlides %}
-        <div class="promo-slide">
-          <h1>{{ slide.title }}</h1>
-          <p>{{ slide.subtitle }}</p>
-          <button type="button">{{ slide.buttonText }}</button>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-  <!-- END promo-slider -->
 
   {# footer #}
   {% include "partials/_footer.html" %}

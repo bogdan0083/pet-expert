@@ -10,7 +10,7 @@ test/coverage
 .Trashes
 
 # Dist
-dist
+dist/
 
 # idea files
 .idea
