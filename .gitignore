@@ -22,3 +22,4 @@ debug.log
 # Generated scss data
 src/sass/generated/_svg-sprite.scss
 src/sass/mixins/_sprite.scss
+/old-markup/
