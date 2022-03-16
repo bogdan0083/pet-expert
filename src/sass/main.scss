@@ -19,6 +19,7 @@
 @import '~bootstrap/scss/transitions.scss';
 @import '~swiper/swiper.scss';
 @import '~@fancyapps/fancybox/src/css/core';
+@import 'libs/fullpage.scss';
 
 // mixins
 @import 'mixins/font-face';
@@ -41,3 +42,5 @@
 @import 'components/header.scss';
 @import 'components/footer.scss';
 @import 'components/content.scss';
+@import 'components/promo.scss';
+@import 'components/promo-slides.scss';

@@ -13,14 +13,17 @@ function browserSupportsWebp() {
 
 document.addEventListener('DOMContentLoaded', function (e) {
 
-  var animBlock = document.getElementById('anim-block');
-  var animBottleImg = document.querySelector('.anim-bottle--img');
-  var animationSection = document.querySelectorAll('.animation-section');
+  new fullpage('#fullpage', {
+    //options here
+    sectionSelector: '.js-section',
+  });
+  var promoSlidesBeer = document.getElementById('promo-slides-beer');
+  var animBottleImg = promoSlidesBeer.querySelector('.anim-bottle--img');
+  var animationSection = promoSlidesBeer.querySelectorAll('.animation-section');
 
   var casesWrap = document.querySelector('.cases');
   var concept = document.querySelector('.concept');
   var conceptItem = document.querySelectorAll('.concept-item');
-
 
   var animationDescr = document.querySelectorAll('.animation-descr');
 
@@ -34,10 +37,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
   }
   var scrollBefore = 0;
 
-
-
-
-
   var swipe = new Swiper('.swiper', {
     slidesPerView: 5,
     spaceBetween: 10,
@@ -50,13 +49,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
   setTimeout(() => {
     var canvas = document.getElementById("anim-bottle");
-    var animBlockElem = document.getElementById("anim-block");
-    var animBlockElemWidth = animBlockElem.clientWidth;
-    console.log(animBlockElem);
-    console.log(animBlockElemWidth);
+    var promoSlidesBeerElem = document.getElementById("promo-slides-beer");
+    var promoSlidesBeerElemWidth = promoSlidesBeerElem.clientWidth;
     var context = canvas.getContext("2d");
 
-    var windowWidth = window.innerWidth;
     var windowHeight = Math.min(window.innerHeight, 900);
 
     var initialImgHeight = 900;
@@ -103,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
           trigger: '#anim-bottle',
           spacer: '#anim-bottle',
           start: 'top',
-          endTrigger: '#anim-block',
+          endTrigger: '.promo-slides-container',
           end: 'bottom bottom',
           scrub: 0,
           ease: "none",
@@ -119,22 +115,21 @@ document.addEventListener('DOMContentLoaded', function (e) {
       duration: 1,
       onUpdate: render // use animation onUpdate instead of scrollTrigger's onUpdate
     });
-    console.log(animBlockElemWidth);
 
-    tl.to('#anim-bottle', {
-      x: animBlockElemWidth * 0.4,
+    tl.to(canvas, {
+      x: promoSlidesBeerElemWidth * 0.4,
       duration: '0.08',
       ease: "ease-out",
     }, '0.320');
 
-    tl.to('#anim-bottle', {
+    tl.to(canvas, {
       x: '-10%',
       duration: '0.15',
       ease: "ease-out",
     }, '0.560');
 
-    tl.to('#anim-bottle', {
-      x: animBlockElemWidth * 0.4,
+    tl.to(canvas, {
+      x: promoSlidesBeerElemWidth * 0.4,
       duration: '0.08',
       ease: "ease-out",
     }, '0.838');
@@ -142,7 +137,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
     images[0].onload = render;
 
     function render(data) {
-      console.log('currentFrame:', bottle.frame);
       context.clearRect(0, 0, canvas.width, canvas.height);
       if (bottleType == 'beer') {
         context.drawImage(images[bottle.frame], 250, 0, img.width, img.height, centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
@@ -150,7 +144,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
         context.drawImage(images[bottle.frame], 200, 0, img.width, img.height, centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
       }
     }
-
 
     animationDescr.forEach(function (item, index) {
       item.addEventListener('click', function (e) {

@@ -28,12 +28,13 @@ html {
   }
 }
 
-
+:root {
+  --header-height: 154px;
+}
 body {
   margin: 0;
   padding: 0;
   font-size: 1.6rem;
-  overflow-x: hidden;
   overflow-y: visible;
   background: #ffffff;
   color: $text-primary;
@@ -56,13 +57,6 @@ body {
 }
 
 /* Base styles start */
-body {
-  background-color: #f3f3f3;
-  overflow-x: hidden;
-  min-width: 320px;
-  //@include gilroy();
-}
-
 a {
   color: $text-primary;
   transition: all 0.4s;

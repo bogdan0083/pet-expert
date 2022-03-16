@@ -1,0 +1,165 @@
+/* start promo-slides */
+
+.promo-slides-container {
+  overflow: hidden;
+}
+
+.promo-slides {
+  display: none;
+  &.active {
+    display: block;
+  }
+}
+
+.anim-bottle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: block;
+  height: 100%;
+  top: 50px;
+  width: 100%;
+  max-width: 1260px;
+  margin: 0 auto;
+}
+
+.anim-bottle--img {
+  position: absolute;
+  left: -30%;
+  top: 15vh;
+  width: 70%;
+  transition: 0.3s top linear, 1.5s left ease;
+  z-index: 999;
+}
+
+.animation-descr {
+  position: absolute;
+  right: 0;
+  bottom: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 30px;
+  border: 1px solid #dedee3;
+  background: #fff;
+  z-index: 9999;
+  cursor: pointer;
+  width: 290px;
+  box-sizing: border-box;
+}
+
+.animation-descr img {
+  margin-right: 30px;
+  width: 54px;
+  height: 90px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.animation-section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: contain;
+}
+
+.animation-section--wrap {
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  max-width: 1260px;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+}
+
+.animation-section--wrap.left {
+  justify-content: flex-start;
+}
+
+.animation-section--text {
+  width: 50%;
+  flex-basis: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: contain;
+}
+
+.animation-section--text .title {
+  font-weight: 700;
+  font-size: 56px;
+  color: #1b2ac9;
+}
+
+.animation-section--text .title.big {
+  font-size: 96px;
+}
+
+.animation-section--text .descr {
+  margin-left: 5px;
+  margin-top: 40px;
+  font-size: 30px;
+}
+
+.animation-section:first-of-type, .animation-section:last-of-type {
+  &:before {
+    content: '';
+    position: absolute;
+    width: 2098px;
+    height: 1142px;
+    background-image: url('../img/anim_bg.png');
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    left: 50%;
+  }
+}
+
+.content {
+  margin-top: 30px;
+}
+
+.content ul {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+}
+
+.content ul li {
+  position: relative;
+  padding-left: 30px;
+  list-style: none;
+}
+
+.content ul li::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  top: calc(50% - 6px);
+  left: 0;
+  background: linear-gradient(271.8deg, #1b2ac9 -0.56%, #0073f0 100.44%);
+}
+
+@include down('sm') {
+}
+
+@include down('md') {
+}
+
+@include down('lg') {
+}
+
+@include down('xl') {
+}
+
+/* end promo-slides */
