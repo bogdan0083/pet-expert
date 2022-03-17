@@ -882,23 +882,23 @@ main .h2 span {
     object-fit: cover;
   }
 
-  .animation-section--text {
+  .promo-slide__content-inner {
     width: 100%;
     flex-basis: 100%;
   }
 
-  .animation-section--text .title {
+  .promo-slide__content-inner .promo-slide__title {
     font-size: 32px;
   }
 
-  .animation-section--text .title.big {
+  .promo-slide__content-inner .promo-slide__title.big {
     font-size: 60px;
   }
 
   .anim-bottle {
     top: 50px;
   }
-  .animation-descr img {
+  .promo-slide-trigger img {
     margin-right: 20px;
     width: 30px;
   }

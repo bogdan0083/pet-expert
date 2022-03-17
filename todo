@@ -17,3 +17,7 @@ Optimize bottle images
 Ask about new animation on slideshow in
 Ask about play button for video
 Optimize bottle images
+Remove all unnecessary styles
+Take all the necessary blocks from markup
+move all libs out of node_modules
+optimize images

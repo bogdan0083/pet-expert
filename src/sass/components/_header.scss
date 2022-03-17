@@ -2,11 +2,11 @@
 .header {
   transition: 0.3s background-color ease, 0.3s color ease;
   background-color: #fff;
-  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1;
+  position: fixed;
 }
 
 .header.active {

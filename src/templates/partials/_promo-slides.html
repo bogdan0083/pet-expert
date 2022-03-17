@@ -2,76 +2,182 @@
 
 <!-- START promo-slides -->
 
-<div class="promo-slides-container">
-  <div id="promo-slides-beer" class="promo-slides active">
-    <div class="anim-bottle">
-      <canvas id="anim-bottle" class="anim-bottle-canvas"></canvas>
-    </div>
+<!-- START beer-slides -->
 
-    <div class="animation-section animation-section--1 js-section">
-      <div class="animation-descr">
-        <img src="./img/water-i.svg" alt="">
-        <span>Решения для воды</span>
-      </div>
-      <div class="animation-section--wrap">
-        <div class="animation-section--text">
-          <div class="title big">Пиво</div>
-          <div class="descr">Замена металлических кег на ПЭТ</div>
+<div class="js-section js-section-beer fp-auto-height">
+  <div class="promo-slide promo-slide-first js-promo-slide-first promo-slide--beer promo-slide--beer-1">
+    <div class="container position-relative">
+      <div class="anim-bottle" id="anim-beer-container">
+        <div class="anim-bottle__inner" id="anim-beer-inner-container">
+          <canvas id="anim-beer" class="anim-bottle-canvas" width="1600" height="900"></canvas>
         </div>
       </div>
 
-    </div>
-    <div class="animation-section js-section">
-      <div class="animation-section--wrap">
-        <div class="animation-section--text" style="background-image: url(./img/1.png);">
-          <div class="title">Эстетика упаковки</div>
-          <div class="content">
-            <ul>
-              <li>Низкая теплопроводность</li>
-              <li>Гарантия герметичности фитинга</li>
-              <li>Стерильная среда внутри кега</li>
-            </ul>
-          </div>
+
+      <div class="promo-slide__content">
+        <div class="promo-slide__content-inner">
+          <div class="promo-slide__title big">Пиво</div>
+          <div class="promo-slide__desc">Замена металлических кег на ПЭТ</div>
         </div>
       </div>
     </div>
-    <div class="animation-section js-section">
-      <div class="animation-section--wrap left">
-        <div class="animation-section--text" style="background-image: url(./img/2.png);">
-          <div class="title">Выгодная логистика</div>
-          <div class="content">
-            <ul>
-              <li>Отсутствует необходимость возврата тары</li>
-              <li>ПЭТ-КЕГ в 16 раз легче металлической</li>
-              <li>Фура вмещает на 25% больше</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="animation-section js-section">
-      <div class="animation-section--wrap">
-        <div class="animation-section--text" style="background-image: url(./img/3.png);">
-          <div class="title">Сокращение издержек производства</div>
-          <div class="content">
-            <ul>
-              <li>Разморозка денежных средств заложеных в тару</li>
-              <li>Сокращение площади хранения КЕГ</li>
-              <li>Отсутствие технического обслуживания и мойки</li>
-              <li>Сокращение фонда оплаты труда</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="animation-section">
-      <div class="animation-section--wrap left">
-        <div class="animation-section--text">
-          <div class="title">Оптимизируйте бизнес и расширьте географию сбыта!</div>
+
+    <button class="promo-slide-trigger js-promo-slideshow-change-trigger" id="promo-trigger-beer" data-bottle-type="water">
+      <img src="./img/water-i.svg" alt="icon">
+      <span>Решение для воды</span>
+    </button>
+  </div>
+</div>
+
+<div class="js-section js-section-beer fp-auto-height">
+  <div class="promo-slide promo-slide--beer promo-slide--beer-2">
+    <div class="promo-slide__content">
+      <div class="promo-slide__content-inner" style="background-image: url(./img/1.png);">
+        <div class="promo-slide__title">Эстетика упаковки</div>
+        <div class="promo-slide__items">
+          <ul>
+            <li>Низкая теплопроводность</li>
+            <li>Гарантия герметичности фитинга</li>
+            <li>Стерильная среда внутри кега</li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<div class="js-section js-section-beer fp-auto-height">
+  <div class="promo-slide promo-slide--beer promo-slide--beer-3">
+    <div class="promo-slide__content left">
+      <div class="promo-slide__content-inner" style="background-image: url(./img/2.png);">
+        <div class="promo-slide__title">Выгодная логистика</div>
+        <div class="promo-slide__items">
+          <ul>
+            <li>Отсутствует необходимость возврата тары</li>
+            <li>ПЭТ-КЕГ в 16 раз легче металлической</li>
+            <li>Фура вмещает на 25% больше</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="js-section js-section-beer fp-auto-height">
+  <div class="promo-slide promo-slide--beer promo-slide--beer-3">
+    <div class="promo-slide__content">
+      <div class="promo-slide__content-inner" style="background-image: url(./img/3.png);">
+        <div class="promo-slide__title">Сокращение издержек производства</div>
+        <div class="promo-slide__items">
+          <ul>
+            <li>Разморозка денежных средств заложеных в тару</li>
+            <li>Сокращение площади хранения КЕГ</li>
+            <li>Отсутствие технического обслуживания и мойки</li>
+            <li>Сокращение фонда оплаты труда</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="js-section js-section-beer fp-auto-height">
+  <div class="promo-slide promo-slide-last promo-slide--beer promo-slide--beer-3 js-promo-slide-last">
+    <div class="promo-slide__content left">
+      <div class="promo-slide__content-inner">
+        <div class="promo-slide__title">Оптимизируйте бизнес и расширьте географию сбыта!</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END beer-slides -->
+
+<!-- START water-slides -->
+<div class="js-section-water hidden fp-auto-height">
+  <div class="promo-slide promo-slide-first js-promo-slide-first promo-slide--water promo-slide--water-1">
+    <div class="container position-relative">
+      <div class="anim-bottle" id="anim-water-container">
+        <div class="anim-bottle__inner" id="anim-water-inner-container">
+          <canvas id="anim-water" class="anim-bottle-canvas" width="1600" height="900"></canvas>
+        </div>
+      </div>
+
+      <div class="promo-slide__content">
+        <div class="promo-slide__content-inner">
+          <div class="promo-slide__title big">Вода</div>
+          <div class="promo-slide__desc">Замена металлических кег на ПЭТ</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="promo-slide-trigger js-promo-slideshow-change-trigger" id="promo-trigger-water" data-bottle-type="beer">
+      <img src="./img/water-i.svg" alt="icon">
+      <span>Решение для пива</span>
+    </button>
+  </div>
+</div>
+
+<div class="js-section-water hidden fp-auto-height">
+  <div class="promo-slide promo-slide--water promo-slide--water-2">
+    <div class="promo-slide__content">
+      <div class="promo-slide__content-inner" style="background-image: url(./img/1.png);">
+        <div class="promo-slide__title">Эстетика упаковки</div>
+        <div class="promo-slide__items">
+          <ul>
+            <li>Низкая теплопроводность</li>
+            <li>Гарантия герметичности фитинга</li>
+            <li>Стерильная среда внутри кега</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="js-section-water hidden fp-auto-height">
+  <div class="promo-slide promo-slide--water promo-slide--water-3">
+    <div class="promo-slide__content left">
+      <div class="promo-slide__content-inner" style="background-image: url(./img/2.png);">
+        <div class="promo-slide__title">Выгодная логистика</div>
+        <div class="promo-slide__items">
+          <ul>
+            <li>Отсутствует необходимость возврата тары</li>
+            <li>ПЭТ-КЕГ в 16 раз легче металлической</li>
+            <li>Фура вмещает на 25% больше</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="js-section-water hidden fp-auto-height">
+  <div class="promo-slide promo-slide--water promo-slide--water-4">
+    <div class="promo-slide__content">
+      <div class="promo-slide__content-inner" style="background-image: url(./img/3.png);">
+        <div class="promo-slide__title">Сокращение издержек производства</div>
+        <div class="promo-slide__items">
+          <ul>
+            <li>Разморозка денежных средств заложеных в тару</li>
+            <li>Сокращение площади хранения КЕГ</li>
+            <li>Отсутствие технического обслуживания и мойки</li>
+            <li>Сокращение фонда оплаты труда</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="js-section-water hidden fp-auto-height">
+  <div class="promo-slide promo-slide--water promo-slide--water-3 js-promo-slide-last">
+    <div class="promo-slide__content left">
+      <div class="promo-slide__content-inner">
+        <div class="promo-slide__title">Оптимизируйте бизнес и расширьте географию сбыта!</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END water-slides -->
 
 <!-- END promo-slides -->

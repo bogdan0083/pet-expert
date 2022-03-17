@@ -5,9 +5,10 @@
 
 .promo {
   position: relative;
-  height: calc(100vh - var(--header-height));
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-top: var(--header-height);
 }
 
 .promo__main {
@@ -68,6 +69,9 @@
   border: 2px solid transparent;
   width: 50%;
   @include tr((background-color, border-color));
+  span {
+    color: $black;
+  }
   svg path {
     @include tr((fill, stroke));
   }
@@ -88,9 +92,6 @@
       color: white;
     }
   }
-}
-.promo__choose-item:first-child {
-  margin-right: -2px;
 }
 
 .promo__choose-item span {
