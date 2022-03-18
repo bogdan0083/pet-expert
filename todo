@@ -21,3 +21,5 @@ Remove all unnecessary styles
 Take all the necessary blocks from markup
 move all libs out of node_modules
 optimize images
+move header hiding to scrolltrigger
+Fix bug when fullpage is not initializing on when started on normal scroll section

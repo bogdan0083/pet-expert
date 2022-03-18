@@ -1,7 +1,13 @@
 /* start promo-slides */
 
 #fullpage-promo {
+  height: auto !important;
   overflow: hidden;
+  transition: opacity 0.3s !important;
+  opacity: 1;
+  &.inactive {
+    opacity: 0;
+  }
 }
 .promo-slides-container {
   overflow: hidden;

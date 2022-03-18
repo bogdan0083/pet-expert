@@ -1,0 +1,36 @@
+/* start promo-concepts */
+
+.promo-concepts-before-wave {
+  margin-bottom: -960px;
+  background-color: #f2f3f7;
+}
+
+.promo-concepts-section {
+  background-color: $primary;
+  color: white;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 100vh;
+  .fp-tableCell {
+    //vertical-align: top;
+  }
+}
+
+.promo-concepts__inner {
+  display: flex;
+  flex-direction: column;
+}
+
+@include down('sm') {
+}
+
+@include down('md') {
+}
+
+@include down('lg') {
+}
+
+@include down('xl') {
+}
+
+/* end promo-concepts */
