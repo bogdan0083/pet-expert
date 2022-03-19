@@ -19,24 +19,28 @@ title: Главная страница
     {# promo-slides #}
     {% include "partials/_promo-slides.html" %}
 
-    <div class="js-section js-section-normal-scroll fp-auto-height">
+    <div class="js-section-normal-scroll">
 
       {# item-group #}
       {% include "partials/_item-group.html" %}
 
       {# cases #}
       {% include "partials/_cases.html" %}
-
     </div>
 
     {# promo-concepts #}
     {% include "partials/_promo-concepts.html" %}
 
-    {# footer #}
-    {% include "partials/_footer.html" %}
+    <div class="js-section js-section-normal-scroll fp-auto-height">
+
+      {# team #}
+      {% include "partials/_team.html" %}
+
+      {# footer #}
+      {% include "partials/_footer.html" %}
+    </div>
 
   </div>
-
 
 
 {% endblock %}

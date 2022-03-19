@@ -10,12 +10,44 @@ function browserSupportsWebp() {
   }
 }
 
+var getPreviousVisibleSibling = function (elem, selector) {
+
+  // Get the next sibling element
+  var sibling = elem.previousElementSibling;
+
+  // If there's no selector, return the first sibling
+  if (!selector) return sibling;
+
+  // If the sibling matches our selector, use it
+  // If not, jump to the next sibling and continue the loop
+  while (sibling) {
+    if (sibling.matches(selector) && sibling.offsetParent !== null) return sibling;
+    sibling = sibling.previousElementSibling;
+  }
+};
+
+var getNextVisibleSibling = function (elem, selector) {
+
+  // Get the next sibling element
+  var sibling = elem.nextElementSibling;
+
+  // If there's no selector, return the first sibling
+  if (!selector) return sibling;
+
+  // If the sibling matches our selector, use it
+  // If not, jump to the next sibling and continue the loop
+  while (sibling) {
+    if (sibling.matches(selector) && sibling.offsetParent !== null) return sibling;
+    sibling = sibling.nextElementSibling;
+  }
+};
+
 document.addEventListener('DOMContentLoaded', function (e) {
   var fpPromo;
   var fpPromoElem = document.getElementById('fullpage-promo');
   var bottleTimeline;
   var triggerTl;
-  var normalSection = document.querySelector('.js-section-normal-scroll');
+  var activeNormalSection = document.querySelector('.js-section-normal-scroll');
   var currentActiveBottleType = 'beer';
   var SCREEN_DOWN_XL = '(max-width: 1290px)';
   var SCREEN_DOWN_LG = '(max-width: 992px)';
@@ -24,9 +56,16 @@ document.addEventListener('DOMContentLoaded', function (e) {
   var promoSlideshowChangeTrigger = document.querySelectorAll('.js-promo-slideshow-change-trigger');
   var beerSections = document.querySelectorAll('.js-section-beer');
   var waterSections = document.querySelectorAll('.js-section-water');
+  var promoConceptsSections = document.querySelectorAll('.promo-concepts-section');
   var promoSlideshowTriggerLocked = false;
   var scrollLocked = false;
   var scrollEventRegistered = false;
+
+  gsap.config({
+    trialWarn: false
+  });
+
+  gsap.registerPlugin(SplitText);
 
   initSlideShow('beer');
 
@@ -236,7 +275,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
       fitToSection: false,
 
       onLeave: function (section, next, direction) {
-        console.log(section);
         // @TODO: optimize animations
         var targets = next.item.querySelectorAll('.promo-slide__title, .promo-slide__desc, .promo-slide__items li');
         if (section.index === 1 && direction === 'up') {
@@ -278,23 +316,33 @@ document.addEventListener('DOMContentLoaded', function (e) {
           fpPromo.setKeyboardScrolling(false);
         }
 
-        var nextSectionIsNormal = section.item.classList.contains('promo-concepts-section') && next.item.classList.contains('js-section-normal-scroll');
+        var nextSectionIsNormal = section.item.classList.contains('promo-concepts-section') && section.item.previousElementSibling.classList.contains('js-section-normal-scroll') && direction === 'up';
 
         if (nextSectionIsNormal) {
+          activeNormalSection = next.item;
           destroyFullpagePromo();
           gsap.to(window, {
-            duration: 1, ease: 'ease-in-out', scrollTo: {y: normalSection, offsetY: -normalSection.clientHeight + window.innerHeight + 30}, onComplete: function () {
+            duration: 1,
+            ease: "power2.inOut",
+            scrollTo: {y: activeNormalSection, offsetY: -activeNormalSection.clientHeight + window.innerHeight},
+            onComplete: function () {
               document.addEventListener('scroll', onNormalSectionScroll);
             }
           });
           return false;
         }
 
+        // if (getNextVisibleSibling('.js-section-normal-scroll')) {
+        //   destroyFullpagePromo();
+        //   return false;
+        // }
+
         return true;
       },
       afterLoad: function (anchorLink, section) {
         if (section.item && section.item.classList.contains('js-section-normal-scroll')) {
           destroyFullpagePromo();
+          activeNormalSection = section.item;
           if (!scrollEventRegistered) {
             document.addEventListener('scroll', onNormalSectionScroll);
             scrollEventRegistered = true;
@@ -307,6 +355,121 @@ document.addEventListener('DOMContentLoaded', function (e) {
     });
   }
 
+  var casesTimeline = gsap.timeline();
+
+  casesTimeline.to('.js-cases', {
+    scrollTrigger: {
+      trigger: '.js-cases',
+      end: '+=200%',
+      start: 'bottom bottom',
+      pin: true,
+      pinSpacing: false,
+      scrub: true,
+    },
+  });
+
+  promoConceptsSections.forEach(function (item, index) {
+    var content = promoConceptsSections[0].querySelectorAll('.promo-concepts__item')[index];
+    var image = promoConceptsSections[0].querySelectorAll('.promo-concepts__image')[index];
+    var logo = promoConceptsSections[0].querySelector('.promo-concepts__logo');
+    var sectionTitle = promoConceptsSections[0].querySelector('.promo-concepts__section-title');
+    var title = promoConceptsSections[0].querySelectorAll('.promo-concepts__title')[index];
+    var desc = promoConceptsSections[0].querySelectorAll('.promo-concepts__desc')[index];
+    var link = promoConceptsSections[0].querySelectorAll('.promo-concepts__link')[index];
+
+    var splitTitle = new SplitText(title, {type: 'lines'});
+    var splitDesc = new SplitText(desc, {type: 'lines'});
+    new SplitText(desc, {type: 'lines'});
+
+    if (index === 0) {
+      var container = item.querySelector('.container');
+      var logoTimeline = gsap.timeline({
+        scrollTrigger: {
+          scrub: false,
+          trigger: item,
+          start: '40% center',
+          end: '51% center',
+          onEnter: function (data) {
+            logoTimeline.timeScale(1);
+            console.log('enterig!');
+          },
+          onLeave: function (data) {
+            console.log('leaving logo block');
+          },
+          onLeaveBack: function () {
+            logoTimeline.timeScale(3).reverse();
+            console.log('leaving logo block back');
+          }
+        },
+      });
+
+      logoTimeline.fromTo(logo, {alpha: 0}, {alpha: 1, y: 0}, '0');
+      logoTimeline.fromTo(image, {alpha: 0, duration: 2}, {alpha: 1}, '0');
+      logoTimeline.fromTo(sectionTitle, {alpha: 0}, {alpha: 1, y: 0}, '0.3');
+    }
+
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: item,
+        start: '45% center',
+        end: '51% center',
+        scrub: false,
+        toggleActions: "restart none restart none",
+        toggleClass: {targets: [content, image], className: "is-active"},
+      }
+    });
+
+    tl.fromTo(splitTitle.lines, {
+      y: '100%',
+      ease: 'power3.out',
+    }, {y: 0, duration: 1});
+
+    tl.fromTo(splitDesc.lines, {
+      y: '150%'
+    }, {y: 0, duration: 0.7, stagger: 0.05}, '0.2');
+
+    tl.fromTo(link, {
+      alpha: 0
+    }, {alpha: 1, duration: 1}, '-=0.4');
+
+    if (index > 0) {
+      var imagesTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: item,
+          end: '+=100%',
+          scrub: 0.5,
+        }
+      });
+      var prevImage = promoConceptsSections[0].querySelectorAll('.promo-concepts__image')[index];
+
+      imagesTimeline.fromTo(image, {y: '100%'}, {y: 0}, '0');
+    }
+
+    var isLast = index === promoConceptsSections.length - 1;
+    if (!isLast) {
+      var imagesParallaxTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: item,
+          start: 'bottom bottom',
+          end: '+=100%',
+          scrub: 0.5,
+        }
+      });
+
+      imagesParallaxTimeline.fromTo(image, {y: 0, immediateRender: false}, {y: '-30%', immediateRender: false}, '0');
+    }
+  });
+
+  casesTimeline.to(promoConceptsSections[0], {
+    scrollTrigger: {
+      trigger: promoConceptsSections[0].querySelector('.promo-concepts__inner'),
+      end: '+=400%',
+      start: 'top',
+      pin: true,
+      scrub: true,
+    },
+  });
+
   function destroyFullpagePromo() {
     var scrollY = window.scrollY;
     fpPromo.setAutoScrolling(false);
@@ -317,32 +480,32 @@ document.addEventListener('DOMContentLoaded', function (e) {
   }
 
   function onNormalSectionScroll(e) {
-    if (normalSection) {
-      var offsetTop = normalSection.offsetTop;
+    if (activeNormalSection) {
+      var offsetTop = activeNormalSection.offsetTop;
 
       if (offsetTop > window.scrollY) {
 
         document.removeEventListener('scroll', onNormalSectionScroll);
-        var lastPromoSlideElem = currentActiveBottleType === 'beer' ? beerSections[beerSections.length - 1] : waterSections[waterSections.length - 1];
+        var prevSection = getPreviousVisibleSibling(activeNormalSection, '.js-section:not(.hidden)');
 
         gsap.to(window, {
-          duration: 0.7, ease: "power2.in", scrollTo: lastPromoSlideElem, onComplete: function () {
-            lastPromoSlideElem.classList.add('active');
-            normalSection.classList.remove('active');
+          duration: 4.7, ease: "power2.inOut", scrollTo: prevSection, onComplete: function () {
+            prevSection.classList.add('active');
+            activeNormalSection.classList.remove('active');
             initFullpagePromo();
           }
         });
       }
 
-      if (offsetTop + normalSection.clientHeight < (window.scrollY + window.innerHeight)) {
+      if (offsetTop + activeNormalSection.clientHeight < (window.scrollY + window.innerHeight)) {
         e.preventDefault();
         var promoConceptsSection = document.querySelector('.promo-concepts-section');
 
         gsap.to(window, {
-          duration: 1, ease: 'ease-in-out', scrollTo: promoConceptsSection, onComplete: function () {
+          duration: 1, ease: 'power2.inOut', scrollTo: promoConceptsSection, onComplete: function () {
             document.removeEventListener('scroll', onNormalSectionScroll);
 
-            normalSection.classList.remove('active');
+            activeNormalSection.classList.remove('active');
             promoConceptsSection.classList.add('active');
             initFullpagePromo();
           }
@@ -363,7 +526,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
     speed: 400,
     autoplay: true
   });
-
 });
 
 var header = document.querySelector('.header');

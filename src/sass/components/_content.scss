@@ -44,7 +44,8 @@ main .h2 span {
 }
 
 .prod-groups--item img {
-  width: 100%;
+  max-width: 100%;
+  height: auto;
 }
 
 .prod-groups--item h4 {
@@ -227,7 +228,7 @@ main .h2 span {
   margin: 25px 0 0;
   font-weight: 300;
   font-size: 15px;
-  max-width: 344px;
+  mfalseax-width: 344px;
 }
 
 .concept-item--text a {

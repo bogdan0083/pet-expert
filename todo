@@ -23,3 +23,4 @@ move all libs out of node_modules
 optimize images
 move header hiding to scrolltrigger
 Fix bug when fullpage is not initializing on when started on normal scroll section
+Make better animation on first concept promo slide up (hide all visible stuff)

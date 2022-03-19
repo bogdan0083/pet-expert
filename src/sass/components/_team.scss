@@ -1,0 +1,20 @@
+/* start team */
+.team {
+  height: 100vh;
+  background-color: $gray-800;
+  position: relative;
+  z-index: 5;
+}
+
+@include down('sm') {
+}
+
+@include down('md') {
+}
+
+@include down('lg') {
+}
+
+@include down('xl') {
+}
+/* end team */
