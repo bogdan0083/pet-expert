@@ -348,3 +348,17 @@ img {
     }
   }
 }
+
+.tab-content {
+  display: none;
+  opacity: 0;
+  @include tr((opacity));
+}
+
+.tab-content.tab-active {
+  display: block;
+}
+
+.tab-visible {
+  opacity: 1;
+}

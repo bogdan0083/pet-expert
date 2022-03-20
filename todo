@@ -10,13 +10,6 @@ TODOS for every new project:
 
 1. Какую выбирать версию дизайна для мобильных? Там их несколько
 
-Make a preloader
-Add a callback popup
-Arrows in submenu are blurry. Find a way to fix.
-Optimize bottle images
-Ask about new animation on slideshow in
-Ask about play button for video
-Optimize bottle images
 Remove all unnecessary styles
 Take all the necessary blocks from markup
 move all libs out of node_modules
@@ -24,3 +17,11 @@ optimize images
 move header hiding to scrolltrigger
 Fix bug when fullpage is not initializing on when started on normal scroll section
 Make better animation on first concept promo slide up (hide all visible stuff)
+Ask to provide team images without grayscale
+Ask about map
+Fix console errors
+Fix bug when going to team slider from top. swiper gets incorrect dimensions after fullpage init
+Add cool animations on next partners slide
+Make partners with fade effect
+make contact card icons normal (without rectangle)
+Warn about grascale map. Yandex can block it

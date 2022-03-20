@@ -1,9 +1,63 @@
 /* start team */
 .team {
-  height: 100vh;
-  background-color: $gray-800;
   position: relative;
-  z-index: 5;
+  z-index: 2;
+  transform: none !important;
+  padding-top: 170px;
+}
+.team__slide {
+  width: 19.5% !important;
+  margin-right: -3.8%;
+}
+
+.team__title {
+  color: $primary;
+  font-size: 124px;
+  margin-bottom: 50px;
+}
+
+.team__img img {
+  display: block;
+  width: 100%;
+  max-width: none;
+}
+
+.team__slide-content {
+  background-color: $gray-pet;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 123px;
+}
+.team__slide-name {
+  white-space: nowrap;
+  font-weight: 300;
+  margin-bottom: 10px;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  transform: translateY(30px);
+}
+
+.team__slide-job {
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 300;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.3s 0.2s, transform 0.3s 0.2s;
+}
+
+.team__slide.visible .team__slide-name, .team__slide.visible .team__slide-job {
+  opacity: 1;
+  transform: none;
+}
+
+.team__slider .swiper-wrapper {
+  -webkit-transition-timing-function:linear!important;
+  -o-transition-timing-function:linear!important;
+  transition-timing-function:linear!important;
 }
 
 @include down('sm') {

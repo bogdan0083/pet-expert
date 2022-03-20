@@ -391,14 +391,11 @@ document.addEventListener('DOMContentLoaded', function (e) {
           end: '51% center',
           onEnter: function (data) {
             logoTimeline.timeScale(1);
-            console.log('enterig!');
           },
           onLeave: function (data) {
-            console.log('leaving logo block');
           },
           onLeaveBack: function () {
             logoTimeline.timeScale(3).reverse();
-            console.log('leaving logo block back');
           }
         },
       });
@@ -463,8 +460,9 @@ document.addEventListener('DOMContentLoaded', function (e) {
   casesTimeline.to(promoConceptsSections[0], {
     scrollTrigger: {
       trigger: promoConceptsSections[0].querySelector('.promo-concepts__inner'),
-      end: '+=400%',
+      end: '+=' + promoConceptsSections.length.toString() + '00%',
       start: 'top',
+      pinSpacing: false,
       pin: true,
       scrub: true,
     },
@@ -489,7 +487,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         var prevSection = getPreviousVisibleSibling(activeNormalSection, '.js-section:not(.hidden)');
 
         gsap.to(window, {
-          duration: 4.7, ease: "power2.inOut", scrollTo: prevSection, onComplete: function () {
+          duration: 0.7, ease: "power2.inOut", scrollTo: prevSection, onComplete: function () {
             prevSection.classList.add('active');
             activeNormalSection.classList.remove('active');
             initFullpagePromo();
@@ -517,15 +515,171 @@ document.addEventListener('DOMContentLoaded', function (e) {
     }
   }
 
-  var swipe = new Swiper('.swiper', {
-    slidesPerView: 5,
-    spaceBetween: 10,
-    direction: 'horizontal',
-    loop: true,
-    draggable: true,
-    speed: 400,
-    autoplay: true
+  var lastPromoConceptsSection = promoConceptsSections[promoConceptsSections.length - 1];
+  var teamSection = document.querySelector('.team');
+
+  ScrollTrigger.create({
+    trigger: lastPromoConceptsSection,
+    start: 'top bottom',
+    endTrigger: teamSection,
+    end: 'top top',
+    pin: teamSection,
+    pinSpacing: false,
+    onEnter: function (data) {
+      gsap.set(data.pin, {position: 'fixed', top: 0, left: 0, width: '100%'});
+    },
+    onEnterBack: function (data) {
+      gsap.set(data.pin, {position: 'fixed', top: 0, left: 0, width: '100%'});
+    },
+    onLeaveBack: function (data) {
+      gsap.set(data.pin, {position: 'relative', top: 0, left: 0, width: '100%'});
+    },
+    onLeave: function (data) {
+      gsap.set(data.pin, {position: 'relative', top: 0, left: 0, width: '100%'});
+    }
   });
+
+  // Слайдер для секции "Команда"
+  var teamSlides = document.querySelectorAll('.team__slide');
+  var hoveredSlide = true;
+  var teamSwiper = new Swiper('.team__slider', {
+    slidesPerView: "auto",
+    loop: true,
+    loopedSlides: 7,
+    grabCursor: false,
+    spaceBetween: 0,
+    width: "auto",
+    speed: 30000,
+    autoplay: false,
+    freeModeMomentum: false,
+  });
+
+  function teamInfiniteSlides() {
+    teamSwiper.slideToLoop(teamSlides.length);
+    teamSwiper.once('transitionEnd', function () {
+      teamSwiper.slideToLoop(0, 0, false);
+      setTimeout(function () {
+        teamInfiniteSlides();
+      }, 0);
+    });
+  }
+
+  setTimeout(function () {
+    teamInfiniteSlides();
+
+    teamSwiper.el.addEventListener('mousemove', function (e) {
+      var newHoveredSlide = e.target.closest('.swiper-slide');
+      if (newHoveredSlide && hoveredSlide !== newHoveredSlide) {
+        hoveredSlide = newHoveredSlide;
+
+        // Если слайд еще не полностью в экране - игнорим
+        var viewportOffset = hoveredSlide.getBoundingClientRect();
+        var left = viewportOffset.left;
+
+        if (left <= 0) {
+          return;
+        } else if ((left + hoveredSlide.clientWidth) >= window.innerWidth) {
+          return
+        }
+
+        teamSlides.forEach(function (item) {
+          item.classList.remove('visible');
+        });
+
+        var translate = teamSwiper.getTranslate();
+        teamSwiper.setTransition(0);
+        teamSwiper.setTranslate(translate);
+        hoveredSlide.classList.add('visible');
+      }
+    });
+
+    teamSwiper.el.addEventListener('mouseleave', function (e) {
+      hoveredSlide = false;
+
+      teamSlides.forEach(function (item) {
+        item.classList.remove('visible');
+      });
+
+      teamInfiniteSlides();
+
+    });
+
+  }, 200);
+
+  // Слайдер для секции "Партнеры"
+  var partnersLogos = document.querySelectorAll('.partners-logos__item');
+
+  var partnersSwiper = new Swiper('.partners__slider', {
+    loop: true,
+    speed: 1000,
+    navigation: {
+      nextEl: ".partners__slider-next"
+    },
+    on: {
+      slideChange: function (swiper) {
+        var slideIndex = swiper.realIndex;
+        if (partnersLogos && partnersLogos.length > 0) {
+          partnersLogos.forEach(function (item, idx) {
+            item.classList.remove('active');
+            if (slideIndex === idx) {
+              item.classList.add('active');
+            }
+          });
+        }
+      }
+    }
+  });
+
+  // @TODO: delegate to improve perfomance
+  partnersLogos.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      e.preventDefault();
+      var clickedIndex = Array.prototype.indexOf.call(partnersLogos, item);
+      partnersSwiper.slideToLoop(clickedIndex);
+    });
+  });
+
+  // Базовая имплементация табов
+  // Имплементация табов
+  var tabTriggers = document.querySelectorAll('[data-tab-trigger]');
+
+  tabTriggers.forEach(function (item) {
+    item.addEventListener('click', onTabTriggerClick);
+  });
+
+  function onTabTriggerClick(e) {
+    e.preventDefault();
+
+    if (this.classList.contains('active')) {
+      return;
+    }
+
+    var tabTriggerSelector = this.dataset.tabTrigger;
+    var tabElem = document.querySelector(tabTriggerSelector);
+
+    var parentId = tabElem.dataset.parent;
+    var parentElem = document.querySelector(parentId);
+
+    var tabs = parentElem.querySelectorAll('.tab-content');
+    var triggers = parentElem.querySelectorAll('[data-tab-trigger]');
+
+    tabs.forEach(function (item) {
+      item.classList.remove('tab-active');
+      item.classList.remove('tab-visible');
+    });
+
+    triggers.forEach(function (item) {
+      item.classList.remove('active');
+    });
+
+    tabElem.classList.add('tab-active');
+    this.classList.add('active');
+
+    // для эффекта анимации
+    setTimeout(function () {
+      tabElem.classList.add('tab-visible');
+    }, 50);
+  }
 });
 
 var header = document.querySelector('.header');

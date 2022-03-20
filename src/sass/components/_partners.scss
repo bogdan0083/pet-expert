@@ -1,0 +1,126 @@
+/* start partners */
+.partners {
+  padding-top: 130px;
+  padding-bottom: 100px;
+  background-color: white;
+}
+
+.partners__title {
+  color: $primary;
+  font-size: 124px;
+  margin-bottom: 50px;
+}
+
+.partners__slider {
+  position: relative;
+  overflow: hidden;
+}
+
+.partners__company {
+  padding-left: 100px;
+  padding-right: 100px;
+  font-weight: 300;
+  font-size: 24px;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.partners__quote {
+  padding-left: 100px;
+  padding-right: 110px;
+  position: relative;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  &:before, &:after {
+    content: '«';
+    line-height: 1;
+    font-size: 144px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -0.13em;
+    transform: translateY(-50%);
+    color: $blue-2;
+    opacity: 0.2;
+  }
+  &:after {
+    content: '»';
+    left: auto;
+    right: 0;
+  }
+}
+.partners__slider-next {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid $primary;
+  height: 64px;
+  width: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+  svg path, svg rect {
+    transition: fill 0.3s;
+  }
+  &:hover {
+    background-color: $primary;
+    svg path, svg rect {
+      fill: white;
+    }
+  }
+}
+
+.partners-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.partners-logos__item {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 16.6666%;
+  padding-left: 10px;
+  padding-right: 10px;
+  //flex-basis: 152px;
+  height: 184px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  transition: opacity 0.3s, transform 0.3s;
+  &:hover {
+    opacity: 0.5;
+  }
+  &.active {
+    pointer-events: none;
+    transform: scale(1.2);
+  }
+}
+
+@include down('sm') {
+}
+
+@include down('md') {
+}
+
+@include down('lg') {
+}
+
+@include down('xl') {
+}
+
+/* end partners */
