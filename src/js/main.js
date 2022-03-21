@@ -45,21 +45,43 @@ var getNextVisibleSibling = function (elem, selector) {
 document.addEventListener('DOMContentLoaded', function (e) {
   var fpPromo;
   var fpPromoElem = document.getElementById('fullpage-promo');
+  var promoVideo = document.querySelector('.js-promo-video');
+  var videoPlayButton = document.querySelector('.js-promo-play-video');
   var bottleTimeline;
   var triggerTl;
   var activeNormalSection = document.querySelector('.js-section-normal-scroll');
   var currentActiveBottleType = 'beer';
-  var SCREEN_DOWN_XL = '(max-width: 1290px)';
+  var SCREEN_UP_LG = '(min-width: 992px)';
   var SCREEN_DOWN_LG = '(max-width: 992px)';
+  var SCREEN_UP_MD = '(min-width: 768px)';
   var SCREEN_DOWN_MD = '(max-width: 768px)';
+  var isDesktop = window.matchMedia(SCREEN_UP_LG).matches;
+  var isTablet = window.matchMedia(SCREEN_DOWN_LG).matches && window.matchMedia(SCREEN_UP_MD).matches;
+  var isMobile = window.matchMedia(SCREEN_DOWN_MD).matches;
   var promoTabTriggers = document.querySelectorAll('.js-promo-tab-trigger');
   var promoSlideshowChangeTrigger = document.querySelectorAll('.js-promo-slideshow-change-trigger');
   var beerSections = document.querySelectorAll('.js-section-beer');
   var waterSections = document.querySelectorAll('.js-section-water');
   var promoConceptsSections = document.querySelectorAll('.promo-concepts-section');
+  var goDownButtons = document.querySelectorAll('.promo-slide__go-down') ;
   var promoSlideshowTriggerLocked = false;
   var scrollLocked = false;
   var scrollEventRegistered = false;
+
+  if (isDesktop || isTablet) {
+    if (promoVideo && videoPlayButton) {
+      videoPlayButton.addEventListener('click', toggleVideo);
+    }
+
+    goDownButtons.forEach(function (button) {
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (fpPromo) {
+          fpPromo.moveSectionDown();
+        }
+      });
+    })
+  }
 
   gsap.config({
     trialWarn: false
@@ -67,7 +89,16 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
   gsap.registerPlugin(SplitText);
 
-  initSlideShow('beer');
+  if (isMobile) {
+    var promoMobileSlider = new Swiper('.promo__mobile-slider', {
+      loop: true,
+      grabCursor: false,
+    });
+  }
+
+  if (isDesktop) {
+    initSlideShow('beer');
+  }
 
   for (let i = 0; i < promoTabTriggers.length; i++) {
     promoTabTriggers[i].addEventListener("click", function (e) {
@@ -113,6 +144,18 @@ document.addEventListener('DOMContentLoaded', function (e) {
         fpPromoElem.classList.remove('inactive');
       }, 750);
     });
+  }
+
+  function toggleVideo(e) {
+    e.preventDefault();
+
+    if (!promoVideo.getAttribute('src')) {
+      promoVideo.setAttribute('src', promoVideo.getAttribute('data-src'));
+    }
+
+    this.hidden = !this.hidden;
+    promoVideo.muted = !promoVideo.muted;
+    promoVideo.controls = !promoVideo.controls;
   }
 
   function rebuildSlideShowSections() {
@@ -161,12 +204,11 @@ document.addEventListener('DOMContentLoaded', function (e) {
     };
 
     if (fpPromo) {
-      fpPromo.setAutoScrolling(false, 'internal');
-      fpPromo.setAllowScrolling(true);
-      fpPromo.setKeyboardScrolling(false);
+      destroyFullpagePromo();
+      initFullpagePromo();
+    } else {
+      initFullpagePromo();
     }
-
-    initFullpagePromo();
 
     if (bottleTimeline) {
       bottleTimeline.scrollTrigger.kill();
@@ -205,14 +247,22 @@ document.addEventListener('DOMContentLoaded', function (e) {
         ease: "ease-in-out",
       }, '0.320');
 
+      if (bottleType === 'water') {
+        bottleTimeline.to(canvasContainer, {
+          x: '-40%',
+          duration: '0.2',
+          ease: "ease-in-out",
+        }, '0.100');
+      }
+
       bottleTimeline.to(canvasContainer, {
-        x: '0%',
+        x: '-20%',
         duration: '0.20',
         ease: "ease-in-out",
       }, '0.534');
 
       bottleTimeline.to(canvasContainer, {
-        x: '100%',
+        x: '80%',
         duration: '0.20',
         ease: "ease-in-out",
       }, '0.838');
@@ -273,10 +323,12 @@ document.addEventListener('DOMContentLoaded', function (e) {
       sectionSelector: '.js-section',
       scrollBar: true,
       fitToSection: false,
+      verticalCentered: false,
 
       onLeave: function (section, next, direction) {
         // @TODO: optimize animations
         var targets = next.item.querySelectorAll('.promo-slide__title, .promo-slide__desc, .promo-slide__items li');
+        var goDownButton = next.item.querySelector('.promo-slide__go-down');
         if (section.index === 1 && direction === 'up') {
           gsap.timeline()
             .set('.header', {display: 'block'})
@@ -309,6 +361,12 @@ document.addEventListener('DOMContentLoaded', function (e) {
           }, {alpha: 1, x: 0, delay: 0.5, stagger: 0.1}, '0');
         }
 
+        if (goDownButton) {
+          tl.fromTo(goDownButton, {
+            alpha: 0,
+          }, {alpha: 1}, '1');
+        }
+
         var doesNotContainNormalClass = !next.item.classList.contains('js-section-normal-scroll')
 
         if (doesNotContainNormalClass) {
@@ -331,11 +389,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
           });
           return false;
         }
-
-        // if (getNextVisibleSibling('.js-section-normal-scroll')) {
-        //   destroyFullpagePromo();
-        //   return false;
-        // }
 
         return true;
       },
@@ -569,6 +622,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
     teamSwiper.el.addEventListener('mousemove', function (e) {
       var newHoveredSlide = e.target.closest('.swiper-slide');
+      // @TODO: this breaks when hovered multiple times
       if (newHoveredSlide && hoveredSlide !== newHoveredSlide) {
         hoveredSlide = newHoveredSlide;
 
@@ -576,13 +630,13 @@ document.addEventListener('DOMContentLoaded', function (e) {
         var viewportOffset = hoveredSlide.getBoundingClientRect();
         var left = viewportOffset.left;
 
-        if (left <= 0) {
+        if (left <= -100) {
           return;
         } else if ((left + hoveredSlide.clientWidth) >= window.innerWidth) {
           return
         }
 
-        teamSlides.forEach(function (item) {
+        teamSwiper.slides.forEach(function (item) {
           item.classList.remove('visible');
         });
 
@@ -594,11 +648,12 @@ document.addEventListener('DOMContentLoaded', function (e) {
     });
 
     teamSwiper.el.addEventListener('mouseleave', function (e) {
-      hoveredSlide = false;
 
-      teamSlides.forEach(function (item) {
+      teamSwiper.slides.forEach(function (item) {
         item.classList.remove('visible');
       });
+
+      hoveredSlide = false;
 
       teamInfiniteSlides();
 

@@ -6,33 +6,41 @@
 
 <div class="js-section js-section-beer fp-auto-height">
   <div class="promo-slide promo-slide-first js-promo-slide-first promo-slide--beer promo-slide--beer-1">
-    <div class="container position-relative">
+    <div class="promo-slide__content">
       <div class="anim-bottle" id="anim-beer-container">
         <div class="anim-bottle__inner" id="anim-beer-inner-container">
           <canvas id="anim-beer" class="anim-bottle-canvas" width="1600" height="900"></canvas>
         </div>
       </div>
-
-
-      <div class="promo-slide__content">
-        <div class="promo-slide__content-inner">
-          <div class="promo-slide__title big">Пиво</div>
-          <div class="promo-slide__desc">Замена металлических кег на ПЭТ</div>
-        </div>
+      <div class="promo-slide__mobile-img"><img src="img/promo-mobile-first.jpg" alt="ПЭТ"></div>
+      <div class="promo-slide__content-inner">
+        <div class="promo-slide__title big">Пиво</div>
+        <div class="promo-slide__desc">Замена металлических кег на ПЭТ</div>
+        <button class="promo-slide__go-down">
+          <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M.4 11.8A.5.5 0 0 1 1 11l6.7 5.2a.5.5 0 1 1-.6.8L.4 11.8Z" fill="#1B2AC9"/>
+            <path d="M14.1 10.9a.5.5 0 1 1 .6.8L8 16.9a.5.5 0 0 1-.6-.7l6.7-5.3Z" fill="#1B2AC9"/>
+            <path d="M7 .5a.5.5 0 0 1 1 0v16a.5.5 0 0 1-1 0V.5Z" fill="#1B2AC9"/>
+          </svg>
+        </button>
       </div>
     </div>
 
-    <button class="promo-slide-trigger js-promo-slideshow-change-trigger" id="promo-trigger-beer" data-bottle-type="water">
+
+    <button class="promo-slide-trigger js-promo-slideshow-change-trigger" id="promo-trigger-beer"
+            data-bottle-type="water">
       <img src="./img/water-i.svg" alt="icon">
       <span>Решение для воды</span>
     </button>
+    <img src="img/big_bg.png" alt="bg" class="promo-slide__bg" aria-hidden="true">
   </div>
 </div>
 
 <div class="js-section js-section-beer fp-auto-height">
   <div class="promo-slide promo-slide--beer promo-slide--beer-2">
     <div class="promo-slide__content">
-      <div class="promo-slide__content-inner" style="background-image: url(./img/1.png);">
+      <div class="promo-slide__mobile-img"><img src="img/promo-mobile1.jpg" alt="ПЭТ"></div>
+      <div class="promo-slide__content-inner" data-num="1">
         <div class="promo-slide__title">Эстетика упаковки</div>
         <div class="promo-slide__items">
           <ul>
@@ -47,9 +55,10 @@
 </div>
 
 <div class="js-section js-section-beer fp-auto-height">
-  <div class="promo-slide promo-slide--beer promo-slide--beer-3">
+  <div class="promo-slide promo-slide--beer promo-slide--beer-2">
     <div class="promo-slide__content left">
-      <div class="promo-slide__content-inner" style="background-image: url(./img/2.png);">
+      <div class="promo-slide__mobile-img"><img src="img/promo-mobile2.jpg" alt="ПЭТ"></div>
+      <div class="promo-slide__content-inner" data-num="2">
         <div class="promo-slide__title">Выгодная логистика</div>
         <div class="promo-slide__items">
           <ul>
@@ -66,7 +75,8 @@
 <div class="js-section js-section-beer fp-auto-height">
   <div class="promo-slide promo-slide--beer promo-slide--beer-3">
     <div class="promo-slide__content">
-      <div class="promo-slide__content-inner" style="background-image: url(./img/3.png);">
+      <div class="promo-slide__mobile-img"><img src="img/promo-mobile3.jpg" alt="ПЭТ"></div>
+      <div class="promo-slide__content-inner" data-num="3">
         <div class="promo-slide__title">Сокращение издержек производства</div>
         <div class="promo-slide__items">
           <ul>
@@ -83,11 +93,17 @@
 
 <div class="js-section js-section-last js-section-beer fp-auto-height">
   <div class="promo-slide promo-slide-last promo-slide--beer promo-slide--beer-3 js-promo-slide-last">
+
     <div class="promo-slide__content left">
+      <div class="promo-slide__mobile-img"><img src="img/promo-mobile4.jpg" alt="ПЭТ"></div>
       <div class="promo-slide__content-inner">
-        <div class="promo-slide__title">Оптимизируйте бизнес и расширьте географию сбыта!</div>
+        <div class="promo-slide__title promo-slide__title--small">Оптимизируйте бизнес и расширьте географию сбыта!
+        </div>
+        <a href="#" class="promo-slide__button"><span
+            class="promo-slide__button-text">Консультация специалиста</span></a>
       </div>
     </div>
+    <img src="img/big_bg.png" alt="bg" class="promo-slide__bg" aria-hidden="true">
   </div>
 </div>
 <!-- END beer-slides -->
@@ -95,32 +111,42 @@
 <!-- START water-slides -->
 <div class="js-section-water hidden fp-auto-height">
   <div class="promo-slide promo-slide-first js-promo-slide-first promo-slide--water promo-slide--water-1">
-    <div class="container position-relative">
+
+
+    <div class="promo-slide__content">
+
       <div class="anim-bottle" id="anim-water-container">
         <div class="anim-bottle__inner" id="anim-water-inner-container">
           <canvas id="anim-water" class="anim-bottle-canvas" width="1600" height="900"></canvas>
         </div>
       </div>
-
-      <div class="promo-slide__content">
-        <div class="promo-slide__content-inner">
-          <div class="promo-slide__title big">Вода</div>
-          <div class="promo-slide__desc">Замена металлических кег на ПЭТ</div>
-        </div>
+      <div class="promo-slide__content-inner">
+        <div class="promo-slide__title big">Вода</div>
+        <div class="promo-slide__desc">Замена металлических кег на ПЭТ</div>
+        <button class="promo-slide__go-down">
+          <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M.4 11.8A.5.5 0 0 1 1 11l6.7 5.2a.5.5 0 1 1-.6.8L.4 11.8Z" fill="#1B2AC9"/>
+            <path d="M14.1 10.9a.5.5 0 1 1 .6.8L8 16.9a.5.5 0 0 1-.6-.7l6.7-5.3Z" fill="#1B2AC9"/>
+            <path d="M7 .5a.5.5 0 0 1 1 0v16a.5.5 0 0 1-1 0V.5Z" fill="#1B2AC9"/>
+          </svg>
+        </button>
       </div>
     </div>
 
-    <button class="promo-slide-trigger js-promo-slideshow-change-trigger" id="promo-trigger-water" data-bottle-type="beer">
+
+    <button class="promo-slide-trigger js-promo-slideshow-change-trigger" id="promo-trigger-water"
+            data-bottle-type="beer">
       <img src="./img/water-i.svg" alt="icon">
       <span>Решение для пива</span>
     </button>
+    <img src="img/big_bg.png" alt="bg" class="promo-slide__bg" aria-hidden="true">
   </div>
 </div>
 
 <div class="js-section-water hidden fp-auto-height">
   <div class="promo-slide promo-slide--water promo-slide--water-2">
     <div class="promo-slide__content">
-      <div class="promo-slide__content-inner" style="background-image: url(./img/1.png);">
+      <div class="promo-slide__content-inner" data-num="1">
         <div class="promo-slide__title">Эстетика упаковки</div>
         <div class="promo-slide__items">
           <ul>
@@ -137,7 +163,7 @@
 <div class="js-section-water hidden fp-auto-height">
   <div class="promo-slide promo-slide--water promo-slide--water-3">
     <div class="promo-slide__content left">
-      <div class="promo-slide__content-inner" style="background-image: url(./img/2.png);">
+      <div class="promo-slide__content-inner" data-num="2">
         <div class="promo-slide__title">Выгодная логистика</div>
         <div class="promo-slide__items">
           <ul>
@@ -154,7 +180,7 @@
 <div class="js-section-water hidden fp-auto-height">
   <div class="promo-slide promo-slide--water promo-slide--water-4">
     <div class="promo-slide__content">
-      <div class="promo-slide__content-inner" style="background-image: url(./img/3.png);">
+      <div class="promo-slide__content-inner" data-num="3">
         <div class="promo-slide__title">Сокращение издержек производства</div>
         <div class="promo-slide__items">
           <ul>
@@ -173,9 +199,13 @@
   <div class="promo-slide promo-slide--water promo-slide--water-3 js-promo-slide-last">
     <div class="promo-slide__content left">
       <div class="promo-slide__content-inner">
-        <div class="promo-slide__title">Оптимизируйте бизнес и расширьте географию сбыта!</div>
+        <div class="promo-slide__title promo-slide__title--small">Оптимизируйте бизнес и расширьте географию сбыта!
+        </div>
+        <a href="#" class="promo-slide__button"><span
+            class="promo-slide__button-text">Консультация специалиста</span></a>
       </div>
     </div>
+    <img src="img/big_bg.png" alt="bg" class="promo-slide__bg" aria-hidden="true">
   </div>
 </div>
 <!-- END water-slides -->

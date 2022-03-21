@@ -6,9 +6,26 @@
       <div class="contacts__left" id="contacts-info">
         <h2 class="contacts__title">Контакты</h2>
         <div class="contacts__tab-buttons">
-          <button class="contacts__tab-button active" data-tab-trigger="#contact-tab-1">Москва</button>
-          <button class="contacts__tab-button" data-tab-trigger="#contact-tab-2">Новосибирск</button>
-          <button class="contacts__tab-button" data-tab-trigger="#contact-tab-3">Краснодар</button>
+          <button class="contacts__tab-button js-contact-tab active" data-tab-trigger="#contact-tab-1"
+                  data-coords="55.386574,36.728607"
+                  data-route-yandex="https://www.google.com/maps/dir//55.386574,36.728607"
+                  data-route-google="https://www.google.com/maps/dir//55.386574,36.728607"
+                  data-route-2gis="https://2gis.ru/directions/points/|36.728607,55.386574?m=36.728607,55.386574">Москва
+          </button>
+          <button class="contacts__tab-button js-contact-tab" data-tab-trigger="#contact-tab-2"
+                  data-coords="54.983242,82.870423"
+                  data-route-yandex="https://www.google.com/maps/dir//54.983242,82.870423"
+                  data-route-google="https://www.google.com/maps/dir//54.983242,82.870423"
+                  data-route-2gis="https://2gis.ru/directions/points/|82.870423,54.983242?m=82.870423,54.983242">
+            Новосибирск
+          </button>
+          <button class="contacts__tab-button js-contact-tab" data-tab-trigger="#contact-tab-3"
+                  data-coords="45.034214,39.014469"
+                  data-route-yandex="https://www.google.com/maps/dir//45.034214,39.014469"
+                  data-route-google="https://www.google.com/maps/dir//45.034214,39.014469"
+                  data-route-2gis="https://2gis.ru/directions/points/|39.014469,45.034214?m=39.014469,45.034214">
+            Краснодар
+          </button>
         </div>
         <div class="contacts__tab-contents">
 
@@ -223,16 +240,19 @@
             <span>Маршрут</span>
           </div>
           <div class="contacts-map__route-links">
-            <a href="#" target="_blank" class="contacts-map__route-link contacts-map__route-link--google">
+            <a href="https://www.google.com/maps/dir//55.386574,36.728607" target="_blank"
+               class="contacts-map__route-link contacts-map__route-link--google js-route-google">
               <div class="contacts-map__route-link-icon"><img src="img/google-colored.svg" alt="Google maps"></div>
               <span class="contacts-map__route-link-title">Google maps</span>
             </a>
-            <a href="#" target="_blank" class="contacts-map__route-link contacts-map__route-link--google">
+            <a href="https://yandex.ru/maps/?mode=routes&rtext=~55.386574,36.728607&rtt=auto" target="_blank"
+               class="contacts-map__route-link contacts-map__route-link--google js-route-yandex">
               <div class="contacts-map__route-link-icon"><img src="img/yandex-maps-colored.svg" alt="Яндекс карты">
               </div>
               <span class="contacts-map__route-link-title">Яндекс карты</span>
             </a>
-            <a href="#" target="_blank" class="contacts-map__route-link contacts-map__route-link--2gis">
+            <a href="https://2gis.ru/directions/points/|36.728607,55.386574?m=36.728607,55.386574" target="_blank"
+               class="contacts-map__route-link contacts-map__route-link--2gis js-route-2gis">
               <div class="contacts-map__route-link-icon"><img src="img/2gis-colored.svg" alt="2 gis"></div>
               <span class="contacts-map__route-link-title">2 gis</span>
             </a>

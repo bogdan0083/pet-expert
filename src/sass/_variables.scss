@@ -28,8 +28,8 @@ $ff: "Gerbera", $font-family-sans-serif;
 
 $grid-breakpoints: (
   xs: 0,
-  sm: 576px,
-  md: 768px,
+  sm: 476px,
+  md: 640px,
   lg: 992px,
   xl: 1290px
 ) !default;
@@ -40,7 +40,7 @@ $grid-breakpoints: (
 
 $container-max-widths: (
   sm: 540px,
-  md: 720px,
+  md: 640px,
   lg: 960px,
   xl: 1290px
 ) !default;

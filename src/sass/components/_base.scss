@@ -2,6 +2,8 @@
 @include font-face("Gerbera", "../fonts/Gerbera-RegularItalic", normal, italic);
 @include font-face("Gerbera", "../fonts/Gerbera-Bold", bold, normal);
 @include font-face("Gerbera", "../fonts/Gerbera-BoldItalic", bold, italic);
+@include font-face("Gerbera", "../fonts/Gerbera-Black", 800, normal);
+@include font-face("Gerbera", "../fonts/Gerbera-BlackItalic", 800, italic);
 @include font-face("Gerbera", "../fonts/Gerbera-Heavy", 900, normal);
 @include font-face("Gerbera", "../fonts/Gerbera-HeavyItalic", 900, italic);
 @include font-face("Gerbera", "../fonts/Gerbera-Medium", 500, normal);
@@ -19,13 +21,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-size: 62.5%;
-  @include down('lg') {
-    font-size: 58.6%;
-  }
-
-  @include down('sm') {
-    font-size: 54.695%;
-  }
 }
 
 :root {
@@ -48,27 +43,19 @@ body {
   box-sizing: border-box;
 }
 
-// disable aos.js on smartphones and tablets. We don't want the screen to flicker
-[data-aos] {
-  @include media-breakpoint-between('xs', 'lg') {
-    transform: none !important;
-    opacity: 1 !important;
-  }
-}
-
 /* Base styles start */
-a {
-  color: $text-primary;
-  transition: all 0.4s;
-
-  &:hover {
-    color: $primary;
-  }
-
-  &:active {
-    color: darken($primary, 5%);
-  }
-}
+//a {
+//  color: $text-primary;
+//  transition: all 0.4s;
+//
+//  &:hover {
+//    color: $primary;
+//  }
+//
+//  &:active {
+//    color: darken($primary, 5%);
+//  }
+//}
 
 img {
   max-width: 100%;
@@ -77,19 +64,6 @@ img {
 }
 
 /* Base styles end*/
-
-.container-flex {
-  display: flex;
-}
-
-.icon {
-  display: inline-block;
-  vertical-align: middle;
-  border: none;
-  fill: none;
-  stroke: none;
-  @include tr((fill, stroke, color));
-}
 
 .mobile-nav-trigger {
   display: block;
@@ -172,183 +146,6 @@ img {
   }
 }
 
-.color-primary {
-  color: $primary;
-}
-
-.section-title {
-  text-align: center;
-  margin-top: 0;
-  font-size: 36px;
-  font-weight: 400;
-  line-height: 1;
-  position: relative;
-  z-index: 1;
-  color: #515456;
-
-  span {
-    font-weight: bold;
-    display: block;
-    @include up('md') {
-      display: inline;
-    }
-  }
-
-  @include up('lg') {
-    font-size: 60px;
-  }
-}
-
-.price {
-  font-weight: bold;
-  font-size: 17px;
-  color: $primary;
-  margin: 2px 0;
-
-  &-old {
-    font-size: 14px;
-    color: #a7acaa;
-    font-weight: normal;
-
-    span {
-      position: relative;
-      display: inline-block;
-
-      &:after {
-        content: '';
-        width: 105%;
-        height: 1px;
-        background-color: #a7acaa;
-        position: absolute;
-        left: 0;
-        bottom: 0.4em;
-      }
-    }
-  }
-}
-
-.breadcrumbs {
-  font-size: 14px;
-  margin-bottom: 34px;
-
-  a {
-    text-decoration: none;
-  }
-
-  .active {
-    pointer-events: none;
-  }
-}
-
-.popup {
-  width: 285px;
-  z-index: 115;
-  margin: auto;
-  text-align: center;
-  display: none;
-
-  .fancybox-button {
-    display: none;
-  }
-
-  &.fancybox-content {
-    padding: 0;
-  }
-
-  &-heading {
-    font-weight: 400;
-    font-size: 20px;
-    margin-top: 0;
-    @include up('md') {
-      font-size: 28px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-
-  .wrapper {
-    position: relative;
-    background-color: $white;
-    border: 1px solid $gray-800;
-    padding: 40px 20px 20px;
-    height: 100%;
-    @include up('md') {
-      padding-top: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-  }
-
-  .button {
-    width: 100%;
-    margin-top: 20px;
-    display: block;
-  }
-
-  .input-item {
-    width: 100%;
-    @include up('md') {
-      width: 300px;
-    }
-  }
-
-  @include up('md') {
-    width: 540px;
-    height: 380px;
-  }
-}
-
-.checkbox {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  transition: all 0.4s;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.7;
-  }
-
-  .text {
-    font-size: 14px;
-    font-weight: 500;
-    order: -1;
-  }
-
-  .icon {
-    flex: 0 0 20px;
-    width: 20px;
-    height: 20px;
-    border: 1px solid $gray-800;
-    border-radius: 4px;
-    margin-left: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    svg {
-      transition: all 0.4s;
-      width: 12px;
-      height: 12px;
-      opacity: 0;
-    }
-  }
-
-  input {
-    display: none;
-
-    &:checked {
-      + .icon svg {
-        opacity: 1;
-      }
-    }
-  }
-}
-
 .tab-content {
   display: none;
   opacity: 0;
@@ -361,4 +158,12 @@ img {
 
 .tab-visible {
   opacity: 1;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.js-section-normal-scroll {
+  height: auto !important;
 }

@@ -341,4 +341,15 @@
     width: 654px;
   }
 }
+
+@include down('md') {
+  .header {
+    position: relative;
+    .menu {
+      display: none;
+    }
+  }
+}
+
+
 /* END header */
