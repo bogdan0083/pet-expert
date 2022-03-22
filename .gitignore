@@ -11,9 +11,6 @@ dist/video/video1.mp4
 .Spotlight-V100
 .Trashes
 
-# Dist
-dist/
-
 # idea files
 .idea
 debug.log
