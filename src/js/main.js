@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
   var beerSections = document.querySelectorAll('.js-section-beer');
   var waterSections = document.querySelectorAll('.js-section-water');
   var promoConceptsSections = document.querySelectorAll('.promo-concepts-section');
-  var goDownButtons = document.querySelectorAll('.promo-slide__go-down') ;
+  var goDownButtons = document.querySelectorAll('.promo-slide__go-down');
   var promoSlideshowTriggerLocked = false;
   var scrollLocked = false;
   var scrollEventRegistered = false;
@@ -149,8 +149,13 @@ document.addEventListener('DOMContentLoaded', function (e) {
   function toggleVideo(e) {
     e.preventDefault();
 
-    if (!promoVideo.getAttribute('src')) {
-      promoVideo.setAttribute('src', promoVideo.getAttribute('data-src'));
+    var thumbSrc = promoVideo.dataset.thumbSrc;
+    var currentSrc = promoVideo.getAttribute('src');
+
+    if (currentSrc === thumbSrc) {
+      promoVideo.setAttribute('src', promoVideo.getAttribute('data-full-src'));
+    } else {
+      promoVideo.setAttribute('src', thumbSrc);
     }
 
     this.hidden = !this.hidden;
@@ -374,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
           fpPromo.setKeyboardScrolling(false);
         }
 
-        var nextSectionIsNormal = section.item.classList.contains('promo-concepts-section') && section.item.previousElementSibling.classList.contains('js-section-normal-scroll') && direction === 'up';
+        var nextSectionIsNormal = section.item.classList.contains('promo-concepts-section') && next.item.classList.contains('js-section-normal-scroll') && direction === 'up';
 
         if (nextSectionIsNormal) {
           activeNormalSection = next.item;
@@ -408,118 +413,123 @@ document.addEventListener('DOMContentLoaded', function (e) {
     });
   }
 
-  var casesTimeline = gsap.timeline();
+  if (isDesktop) {
+    var casesTimeline = gsap.timeline();
 
-  casesTimeline.to('.js-cases', {
-    scrollTrigger: {
-      trigger: '.js-cases',
-      end: '+=200%',
-      start: 'bottom bottom',
-      pin: true,
-      pinSpacing: false,
-      scrub: true,
-    },
-  });
+    casesTimeline.to('.js-cases', {
+      scrollTrigger: {
+        trigger: '.js-cases',
+        end: '+=200%',
+        start: 'bottom bottom',
+        pin: true,
+        pinSpacing: false,
+        scrub: true,
+      },
+    });
 
-  promoConceptsSections.forEach(function (item, index) {
-    var content = promoConceptsSections[0].querySelectorAll('.promo-concepts__item')[index];
-    var image = promoConceptsSections[0].querySelectorAll('.promo-concepts__image')[index];
-    var logo = promoConceptsSections[0].querySelector('.promo-concepts__logo');
-    var sectionTitle = promoConceptsSections[0].querySelector('.promo-concepts__section-title');
-    var title = promoConceptsSections[0].querySelectorAll('.promo-concepts__title')[index];
-    var desc = promoConceptsSections[0].querySelectorAll('.promo-concepts__desc')[index];
-    var link = promoConceptsSections[0].querySelectorAll('.promo-concepts__link')[index];
+    promoConceptsSections.forEach(function (item, index) {
+      var content = promoConceptsSections[0].querySelectorAll('.promo-concepts__item')[index];
+      var image = promoConceptsSections[0].querySelectorAll('.promo-concepts__image')[index];
+      var logo = promoConceptsSections[0].querySelector('.promo-concepts__logo');
+      var sectionTitle = promoConceptsSections[0].querySelector('.promo-concepts__section-title');
+      var title = promoConceptsSections[0].querySelectorAll('.promo-concepts__title')[index];
+      var desc = promoConceptsSections[0].querySelectorAll('.promo-concepts__desc')[index];
+      var descParagraphs = desc.querySelectorAll('p');
+      var link = promoConceptsSections[0].querySelectorAll('.promo-concepts__link')[index];
 
-    var splitTitle = new SplitText(title, {type: 'lines'});
-    var splitDesc = new SplitText(desc, {type: 'lines'});
-    new SplitText(desc, {type: 'lines'});
+      var splitTitle = new SplitText(title, {type: 'lines'});
 
-    if (index === 0) {
-      var container = item.querySelector('.container');
-      var logoTimeline = gsap.timeline({
+      var splitDesc = new SplitText(descParagraphs, {type: 'lines'});
+      new SplitText(descParagraphs, {type: 'lines'});
+
+      if (index === 0) {
+        var container = item.querySelector('.container');
+        var logoTimeline = gsap.timeline({
+          scrollTrigger: {
+            scrub: false,
+            trigger: item,
+            start: '45% center',
+            end: '51% center',
+            onEnter: function () {
+              logoTimeline.timeScale(1);
+            },
+            onLeave: function () {
+            },
+            onLeaveBack: function () {
+              logoTimeline.timeScale(3).reverse();
+            }
+          },
+        });
+
+        logoTimeline.fromTo(logo, {alpha: 0}, {alpha: 1}, '0');
+        logoTimeline.fromTo(image, {alpha: 0, duration: 1}, {alpha: 1}, '0');
+        logoTimeline.fromTo(sectionTitle, {alpha: 0}, {alpha: 1, y: 0}, '0.3');
+      }
+
+      var tl = gsap.timeline({
         scrollTrigger: {
-          scrub: false,
           trigger: item,
-          start: '40% center',
+          start: '45% center',
           end: '51% center',
-          onEnter: function (data) {
-            logoTimeline.timeScale(1);
-          },
-          onLeave: function (data) {
-          },
-          onLeaveBack: function () {
-            logoTimeline.timeScale(3).reverse();
-          }
-        },
+          scrub: false,
+          toggleActions: "restart none restart none",
+          toggleClass: {targets: [content], className: "is-active"},
+        }
       });
 
-      logoTimeline.fromTo(logo, {alpha: 0}, {alpha: 1, y: 0}, '0');
-      logoTimeline.fromTo(image, {alpha: 0, duration: 2}, {alpha: 1}, '0');
-      logoTimeline.fromTo(sectionTitle, {alpha: 0}, {alpha: 1, y: 0}, '0.3');
-    }
+      tl.fromTo(splitTitle.lines, {
+        y: '100%',
+        ease: 'power3.out',
+      }, {y: 0, duration: 1});
 
-    var tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: item,
-        start: '45% center',
-        end: '51% center',
-        scrub: false,
-        toggleActions: "restart none restart none",
-        toggleClass: {targets: [content, image], className: "is-active"},
+      tl.fromTo(splitDesc.lines, {
+        y: '150%'
+      }, {y: 0, duration: 0.7, stagger: 0.05}, '0.2');
+
+      tl.fromTo(link, {
+        alpha: 0
+      }, {alpha: 1, duration: 1}, '-=0.4');
+
+      if (index > 0) {
+        var imagesTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: item,
+            end: '+=100%',
+            scrub: 0.5,
+          }
+        });
+
+        var prevImage = promoConceptsSections[0].querySelectorAll('.promo-concepts__image')[index];
+
+        imagesTimeline.fromTo(image, {y: '100%'}, {y: 0}, '0');
+      }
+
+      var isLast = index === promoConceptsSections.length - 1;
+      if (!isLast) {
+        var imagesParallaxTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: item,
+            start: 'bottom bottom-=40px',
+            end: '+=100%',
+            scrub: 0.3,
+          }
+        });
+
+        imagesParallaxTimeline.fromTo(image, {y: '0%', immediateRender: false}, {y: '-30%', immediateRender: false}, '0');
       }
     });
 
-    tl.fromTo(splitTitle.lines, {
-      y: '100%',
-      ease: 'power3.out',
-    }, {y: 0, duration: 1});
-
-    tl.fromTo(splitDesc.lines, {
-      y: '150%'
-    }, {y: 0, duration: 0.7, stagger: 0.05}, '0.2');
-
-    tl.fromTo(link, {
-      alpha: 0
-    }, {alpha: 1, duration: 1}, '-=0.4');
-
-    if (index > 0) {
-      var imagesTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: item,
-          end: '+=100%',
-          scrub: 0.5,
-        }
-      });
-      var prevImage = promoConceptsSections[0].querySelectorAll('.promo-concepts__image')[index];
-
-      imagesTimeline.fromTo(image, {y: '100%'}, {y: 0}, '0');
-    }
-
-    var isLast = index === promoConceptsSections.length - 1;
-    if (!isLast) {
-      var imagesParallaxTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: item,
-          start: 'bottom bottom',
-          end: '+=100%',
-          scrub: 0.5,
-        }
-      });
-
-      imagesParallaxTimeline.fromTo(image, {y: 0, immediateRender: false}, {y: '-30%', immediateRender: false}, '0');
-    }
-  });
-
-  casesTimeline.to(promoConceptsSections[0], {
-    scrollTrigger: {
-      trigger: promoConceptsSections[0].querySelector('.promo-concepts__inner'),
-      end: '+=' + promoConceptsSections.length.toString() + '00%',
-      start: 'top',
-      pinSpacing: false,
-      pin: true,
-      scrub: true,
-    },
-  });
+    casesTimeline.to(promoConceptsSections[0], {
+      scrollTrigger: {
+        trigger: promoConceptsSections[0].querySelector('.promo-concepts__inner'),
+        end: '+=' + promoConceptsSections.length.toString() + '00%',
+        start: 'top',
+        pinSpacing: false,
+        pin: true,
+        scrub: true,
+      },
+    });
+  }
 
   function destroyFullpagePromo() {
     var scrollY = window.scrollY;
@@ -568,43 +578,63 @@ document.addEventListener('DOMContentLoaded', function (e) {
     }
   }
 
-  var lastPromoConceptsSection = promoConceptsSections[promoConceptsSections.length - 1];
-  var teamSection = document.querySelector('.team');
+  if (isDesktop) {
+    var lastPromoConceptsSection = promoConceptsSections[promoConceptsSections.length - 1];
+    var teamSection = document.querySelector('.team');
 
-  ScrollTrigger.create({
-    trigger: lastPromoConceptsSection,
-    start: 'top bottom',
-    endTrigger: teamSection,
-    end: 'top top',
-    pin: teamSection,
-    pinSpacing: false,
-    onEnter: function (data) {
-      gsap.set(data.pin, {position: 'fixed', top: 0, left: 0, width: '100%'});
-    },
-    onEnterBack: function (data) {
-      gsap.set(data.pin, {position: 'fixed', top: 0, left: 0, width: '100%'});
-    },
-    onLeaveBack: function (data) {
-      gsap.set(data.pin, {position: 'relative', top: 0, left: 0, width: '100%'});
-    },
-    onLeave: function (data) {
-      gsap.set(data.pin, {position: 'relative', top: 0, left: 0, width: '100%'});
-    }
-  });
+    ScrollTrigger.create({
+      trigger: lastPromoConceptsSection,
+      start: 'top bottom',
+      endTrigger: teamSection,
+      end: 'top top',
+      pin: teamSection,
+      pinSpacing: false,
+      onEnter: function (data) {
+        gsap.set(data.pin, {position: 'fixed', top: 0, left: 0, width: '100%'});
+      },
+      onEnterBack: function (data) {
+        gsap.set(data.pin, {position: 'fixed', top: 0, left: 0, width: '100%'});
+      },
+      onLeaveBack: function (data) {
+        gsap.set(data.pin, {position: 'relative', top: 0, left: 0, width: '100%'});
+      },
+      onLeave: function (data) {
+        gsap.set(data.pin, {position: 'relative', top: 0, left: 0, width: '100%'});
+      }
+    });
+  }
 
   // Слайдер для секции "Команда"
   var teamSlides = document.querySelectorAll('.team__slide');
   var hoveredSlide = true;
   var teamSwiper = new Swiper('.team__slider', {
-    slidesPerView: "auto",
+    slidesPerView: 2,
     loop: true,
-    loopedSlides: 7,
     grabCursor: false,
     spaceBetween: 0,
-    width: "auto",
-    speed: 30000,
-    autoplay: false,
-    freeModeMomentum: false,
+    autoplay: {
+      delay: 2000,
+    },
+    freeModeMomentum: true,
+    allowTouchMove: true,
+    centeredSlides: true,
+    slideToClickedSlide: true,
+    breakpoints: {
+      360: {
+        slidesPerView: 3,
+      },
+      600: {
+        slidesPerView: 5
+      },
+      992: {
+        centeredSlides: false,
+        slidesPerView: "auto",
+        loopedSlides: 7,
+        speed: 40000,
+        slideToClickedSlide: false,
+        freeModeMomentum: false,
+      }
+    },
   });
 
   function teamInfiniteSlides() {
@@ -617,56 +647,102 @@ document.addEventListener('DOMContentLoaded', function (e) {
     });
   }
 
-  setTimeout(function () {
-    teamInfiniteSlides();
 
-    teamSwiper.el.addEventListener('mousemove', function (e) {
-      var newHoveredSlide = e.target.closest('.swiper-slide');
-      // @TODO: this breaks when hovered multiple times
-      if (newHoveredSlide && hoveredSlide !== newHoveredSlide) {
-        hoveredSlide = newHoveredSlide;
+  var onTeamSliderMove = function (e) {
+    var newHoveredSlide = e.target.closest('.swiper-slide');
 
-        // Если слайд еще не полностью в экране - игнорим
-        var viewportOffset = hoveredSlide.getBoundingClientRect();
-        var left = viewportOffset.left;
+    // @TODO: this breaks when hovered multiple times
+    if (newHoveredSlide && hoveredSlide !== newHoveredSlide) {
+      hoveredSlide = newHoveredSlide;
 
-        if (left <= -100) {
-          return;
-        } else if ((left + hoveredSlide.clientWidth) >= window.innerWidth) {
-          return
-        }
+      var viewportOffset = hoveredSlide.getBoundingClientRect();
+      var left = viewportOffset.left;
 
-        teamSwiper.slides.forEach(function (item) {
-          item.classList.remove('visible');
-        });
-
-        var translate = teamSwiper.getTranslate();
-        teamSwiper.setTransition(0);
-        teamSwiper.setTranslate(translate);
-        hoveredSlide.classList.add('visible');
+      // Если слайд еще не полностью в экране - игнорим
+      if (left + 100 < 0) {
+        // var index = teamSwiper.slides.indexOf(hoveredSlide);
+        //
+        // teamSwiper.slideTo(index, 3000, false);
+        //
+        // teamSwiper.off('transitionEnd');
+        // teamSwiper.el.removeEventListener('mousemove', onTeamSliderMove);
+        return;
+      } else if ((left - 100 + hoveredSlide.clientWidth) >= window.innerWidth) {
+        // var index = teamSwiper.slides.indexOf(hoveredSlide);
+        // teamSwiper.slideTo(index, 3000, false);
+        // teamSwiper.off('transitionEnd');
+        // teamSwiper.el.removeEventListener('mousemove', onTeamSliderMove);
+        return;
       }
-    });
 
-    teamSwiper.el.addEventListener('mouseleave', function (e) {
+      var translate = teamSwiper.getTranslate();
+      teamSwiper.setTransition(0);
+      teamSwiper.setTranslate(translate);
 
       teamSwiper.slides.forEach(function (item) {
         item.classList.remove('visible');
       });
 
-      hoveredSlide = false;
+      hoveredSlide.classList.add('visible');
+    }
+  };
 
-      teamInfiniteSlides();
+  var onTeamSliderLeave = function () {
 
+    teamSwiper.slides.forEach(function (item) {
+      item.classList.remove('visible');
     });
 
-  }, 200);
+    teamInfiniteSlides();
+    hoveredSlide = false;
+  };
+
+  var onTeamSliderClick = function (e) {
+
+    var newHoveredSlide = e.target.closest('.swiper-slide');
+    if (newHoveredSlide) {
+
+      var viewportOffset = newHoveredSlide.getBoundingClientRect();
+      var slideWidth = newHoveredSlide.clientWidth;
+      var left = viewportOffset.left;
+
+      teamSwiper.wrapperEl.classList.add('normal-easing');
+
+      var translate = teamSwiper.getTranslate();
+
+      teamSwiper.off('transitionEnd');
+
+      teamSwiper.loopFix();
+      setTimeout(function () {
+        // teamSwiper.slideTo(teamSwiper.clickedIndex, 1000, false);
+      }, 300);
+
+    }
+  }
+
+  if (isDesktop) {
+
+    // @TODO: init after pin-spacer wrap (if on desktop version)
+    teamSwiper.wrapperEl.classList.add('ease-linear');
+
+    teamInfiniteSlides();
+
+    teamSwiper.el.addEventListener('mousemove', onTeamSliderMove);
+    teamSwiper.el.addEventListener('mouseleave', onTeamSliderLeave);
+  } else if (isMobile || isTablet) {
+    // teamSwiper.el.addEventListener('click', onTeamSliderClick);
+  }
 
   // Слайдер для секции "Партнеры"
   var partnersLogos = document.querySelectorAll('.partners-logos__item');
-
   var partnersSwiper = new Swiper('.partners__slider', {
     loop: true,
     speed: 1000,
+    effect: "fade",
+    slidesPerView: 3,
+    fadeEffect: {
+      crossFade: true
+    },
     navigation: {
       nextEl: ".partners__slider-next"
     },
@@ -693,6 +769,23 @@ document.addEventListener('DOMContentLoaded', function (e) {
       partnersSwiper.slideToLoop(clickedIndex);
     });
   });
+
+  var contactSliderElem = document.querySelector('.contacts__person-slider');
+
+  if (contactSliderElem && (isTablet || isMobile)) {
+    var contactSlider = new Swiper(contactSliderElem, {
+      slidesPerView: 2,
+      loopedSlides: 4,
+      loop: true,
+      watchSlidesVisibility: true,
+      spaceBetween: 38,
+      breakpoints: {
+        600: {
+          slidesPerView: 3,
+        }
+      }
+    });
+  }
 
   // Базовая имплементация табов
   // Имплементация табов

@@ -79,6 +79,11 @@
   width: 290px;
   box-sizing: border-box;
   @include tr((color, border-color));
+  svg {
+    width: 40px;
+    height: auto;
+    margin-right: 30px;
+  }
 
   &:focus {
     outline: none;
@@ -319,10 +324,7 @@
   }
 }
 
-@include down('xl') {
-}
-
-@include down('md') {
+@include down('lg') {
   .promo-slide {
     height: auto;
     padding-bottom: 130px;
@@ -449,7 +451,7 @@
   }
 }
 
-@include down('sm') {
+@include down('md') {
   .promo-slide {
     padding-bottom: 85px;
   }

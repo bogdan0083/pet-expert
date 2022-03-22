@@ -210,6 +210,7 @@
 
 .menu-item--has-submenu:hover .submenu {
   opacity: 1;
+  display: none !important;
   visibility: visible;
   transform: none;
 }
@@ -342,7 +343,7 @@
   }
 }
 
-@include down('md') {
+@include down('lg') {
   .header {
     position: relative;
     .menu {

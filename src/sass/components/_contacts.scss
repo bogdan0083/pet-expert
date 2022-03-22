@@ -49,7 +49,7 @@
 .contacts__tab-buttons {
   display: flex;
   justify-content: space-between;
-  padding-right: 10px;
+  padding-right: 16px;
 }
 
 .contacts__tab-button {
@@ -119,6 +119,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  @include tr((background-color, color));
   &:hover {
     background-color: white;
     color: $primary;
@@ -303,16 +304,174 @@
   }
 }
 
-@include down('sm') {
-}
-
-@include down('md') {
+@include down('xl') {
+  .contacts__title {
+    font-size: 84px;
+  }
+  .contacts__left {
+    padding-right: 30px;
+  }
+  .contacts__right {
+    padding-left: 30px;
+  }
+  .contacts__tab-buttons {
+    padding-right: 0;
+  }
+  .contacts__phone {
+    font-size: 36px;
+  }
+  .contacts__email, .contacts__address {
+    font-size: 24px;
+  }
 }
 
 @include down('lg') {
+  .contacts__title {
+    font-size: 48px;
+  }
+  .contacts:before {
+    display: none;
+  }
+  .contacts .container {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  .contacts__left {
+    background-color: $primary;
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 65px;
+  }
+  .contacts__tab-contents {
+    max-width: 600px;
+  }
+  .contacts__tab-buttons {
+    justify-content: flex-start;
+  }
+  .contacts__tab-button {
+    margin-right: 54px;
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+  .contacts__right {
+    width: 100%;
+    padding-left: 30px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .contacts-map {
+    margin-top: 0;
+    height: 666px;
+  }
+  .contacts-map__bottom {
+    flex-direction: column;
+    width: 228px;
+    margin-left: auto;
+    margin-right: auto;
+    height: auto;
+    padding-top: 24px;
+    padding-left: 30px;
+    background-color: white;
+  }
+  .contacts-map__route-links {
+    flex-direction: column;
+    opacity: 1;
+    position: static;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    left: 0;
+    margin-left: 0;
+    transform: none;
+    margin-top: 20px;
+  }
+  .contacts-map__route-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .contacts-map__route-link-icon {
+    margin-right: 6px;
+  }
+  .contacts-map__route-title {
+    color: black;
+    text-align: left;
+    display: block;
+    &:after {
+      content: 'Построить маршрут:';
+      font-size: 16px;
+      font-weight: 700;
+      display: block;
+    }
+    span {
+      color: black;
+      display: none;
+    }
+    img {
+      display: none;
+    }
+    &:hover {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  .contacts__person-slide {
+    opacity: 0.4;
+    transition: opacity 0.4s;
+    .contact-card {
+      margin: 0;
+    }
+    &.swiper-slide-visible {
+      opacity: 1;
+    }
+  }
+
+  .contacts__right {
+    padding-right: 100px;
+  }
+  .contacts-map {
+    height: 666px;
+  }
 }
 
-@include down('xl') {
+@include down('md') {
+  .contacts__title {
+    margin-bottom: 28px;
+  }
+  .contacts__tab-buttons {
+    flex-direction: column;
+  }
+  .contacts__tab-button {
+    align-self: flex-start;
+    margin-bottom: 18px;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+  .contacts__tab-contents {
+    margin-top: 40px;
+  }
+  .contacts__person-slide {
+    .contact-card {
+      margin: 0;
+    }
+  }
+}
+
+@include down('sm') {
+  .contacts__right {
+    padding-left: 24px;
+    padding-right: 60px;
+  }
 }
 
 /* end contacts */

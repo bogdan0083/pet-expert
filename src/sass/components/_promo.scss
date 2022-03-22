@@ -155,10 +155,8 @@
   @include tr((color));
 }
 
-@include down('xl') {
-}
 
-@include down('md') {
+@include down('lg') {
   .promo {
     height: auto;
     padding-top: 0;
@@ -213,7 +211,7 @@
   }
 }
 
-@include down('sm') {
+@include down('md') {
   .promo__video {
     display: none;
   }
@@ -224,7 +222,7 @@
 
 }
 
-@include down('xs') {
+@include down('sm') {
   .promo__main {
     padding-bottom: 128%;
   }
