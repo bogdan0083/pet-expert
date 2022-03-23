@@ -13461,7 +13461,7 @@ main .h2 span {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%) !important;
 }
 
 .anim-bottle__inner {
@@ -13546,11 +13546,6 @@ main .h2 span {
   flex-wrap: wrap;
   position: relative;
   z-index: 1;
-}
-.promo-slide__content .pin-spacer {
-  inset: 0 !important;
-  top: 0 !important;
-  left: 0 !important;
 }
 
 .promo-slide__content.left {
