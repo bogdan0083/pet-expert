@@ -333,6 +333,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
       onLeave: function (section, next, direction) {
         // @TODO: optimize animations
         var targets = next.item.querySelectorAll('.promo-slide__title, .promo-slide__desc, .promo-slide__items li');
+        var button = next.item.querySelector('.promo-slide__button');
         var goDownButton = next.item.querySelector('.promo-slide__go-down');
         if (section.index === 1 && direction === 'up') {
           gsap.timeline()
@@ -364,6 +365,12 @@ document.addEventListener('DOMContentLoaded', function (e) {
             alpha: 0,
             x: 30,
           }, {alpha: 1, x: 0, delay: 0.5, stagger: 0.1}, '0');
+          if (button) {
+            tl.fromTo(button, {
+              alpha: 0,
+              x: 30,
+            }, {alpha: 1, x: 0}, '0.6');
+          }
         }
 
         if (goDownButton) {
@@ -479,12 +486,11 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
       tl.fromTo(splitTitle.lines, {
         y: '100%',
-        ease: 'power3.out',
-      }, {y: 0, duration: 1});
+      }, {ease: "power2.out", y: 0, duration: 1});
 
       tl.fromTo(splitDesc.lines, {
-        y: '150%'
-      }, {y: 0, duration: 0.7, stagger: 0.05}, '0.2');
+        y: '150%',
+      }, {ease: "power2.out", y: 0, duration: 0.7, stagger: 0.05}, '0.2');
 
       tl.fromTo(link, {
         alpha: 0
@@ -515,7 +521,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
           }
         });
 
-        imagesParallaxTimeline.fromTo(image, {y: '0%', immediateRender: false}, {y: '-30%', immediateRender: false}, '0');
+        imagesParallaxTimeline.to(image, {y: '-30%', immediateRender: false}, '0');
       }
     });
 
@@ -578,6 +584,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
     }
   }
 
+  var teamSwiper;
+
   if (isDesktop) {
     var lastPromoConceptsSection = promoConceptsSections[promoConceptsSections.length - 1];
     var teamSection = document.querySelector('.team');
@@ -591,9 +599,20 @@ document.addEventListener('DOMContentLoaded', function (e) {
       pinSpacing: false,
       onEnter: function (data) {
         gsap.set(data.pin, {position: 'fixed', top: 0, left: 0, width: '100%'});
+        console.log('entered');
+        if (teamSwiper) {
+          teamSwiper.update();
+          teamSwiper.slideTo(0, 0, false);
+          teamInfiniteSlides();
+        }
       },
       onEnterBack: function (data) {
         gsap.set(data.pin, {position: 'fixed', top: 0, left: 0, width: '100%'});
+        if (teamSwiper) {
+          teamSwiper.update();
+          teamSwiper.slideTo(0, 0, false);
+          teamInfiniteSlides();
+        }
       },
       onLeaveBack: function (data) {
         gsap.set(data.pin, {position: 'relative', top: 0, left: 0, width: '100%'});
@@ -607,11 +626,12 @@ document.addEventListener('DOMContentLoaded', function (e) {
   // Слайдер для секции "Команда"
   var teamSlides = document.querySelectorAll('.team__slide');
   var hoveredSlide = true;
-  var teamSwiper = new Swiper('.team__slider', {
+  teamSwiper = new Swiper('.team__slider', {
     slidesPerView: 2,
     loop: true,
     grabCursor: false,
     spaceBetween: 0,
+    speed: 1000,
     autoplay: {
       delay: 2000,
     },
