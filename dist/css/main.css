@@ -13547,6 +13547,11 @@ main .h2 span {
   position: relative;
   z-index: 1;
 }
+.promo-slide__content .pin-spacer {
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+}
 
 .promo-slide__content.left {
   justify-content: flex-start;
@@ -15059,9 +15064,10 @@ main .h2 span {
   .contacts-map__route-title img {
     display: none;
   }
-  .contacts-map__route-title:hover {
+
+  .contacts-map__bottom:hover .contacts-map__route-title {
     opacity: 1;
-    transform: none;
+    transform: none !important;
   }
 
   .contacts__person-slide {

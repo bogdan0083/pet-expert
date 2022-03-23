@@ -419,11 +419,17 @@
     img {
       display: none;
     }
+  }
+  .contacts-map__bottom {
+
     &:hover {
-      opacity: 1;
-      transform: none;
+      .contacts-map__route-title {
+        opacity: 1;
+        transform: none !important;
+      }
     }
   }
+
   .contacts__person-slide {
     opacity: 0.4;
     transition: opacity 0.4s;

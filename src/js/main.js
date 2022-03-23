@@ -220,59 +220,57 @@ document.addEventListener('DOMContentLoaded', function (e) {
       bottleTimeline.kill();
     }
 
-    setTimeout(function () {
-      bottleTimeline = gsap.timeline(
-        {
-          ease: "none",
-          scrollTrigger: {
-            pin: true,
-            trigger: '#anim-' + bottleType + "-container",
-            spacer: true,
-            pinSpacing: true,
-            pinnedContainer: null,
-            start: 'top',
-            endTrigger: endTriggerElem,
-            end: 'bottom bottom',
-            scrub: 0,
-            ease: "none",
-          },
-        });
-
-      bottleTimeline.to(bottle, {
-        frame: frameCount - 1,
+    bottleTimeline = gsap.timeline(
+      {
         ease: "none",
-        snap: "frame",
-        duration: 1,
-        onUpdate: renderBottleSprite // use animation onUpdate instead of scrollTrigger's onUpdate
+        scrollTrigger: {
+          pin: true,
+          trigger: '#anim-' + bottleType + "-container",
+          spacer: false,
+          pinSpacing: false,
+          pinType: "fixed",
+          pinnedContainer: null,
+          start: 'top',
+          endTrigger: endTriggerElem,
+          end: 'bottom bottom',
+          scrub: 0,
+          ease: "none",
+        },
       });
 
+    bottleTimeline.to(bottle, {
+      frame: frameCount - 1,
+      ease: "none",
+      snap: "frame",
+      duration: 1,
+      onUpdate: renderBottleSprite // use animation onUpdate instead of scrollTrigger's onUpdate
+    });
+
+    bottleTimeline.to(canvasContainer, {
+      x: '100%',
+      duration: '0.2',
+      ease: "ease-in-out",
+    }, '0.320');
+
+    if (bottleType === 'water') {
       bottleTimeline.to(canvasContainer, {
-        x: '100%',
+        x: '-40%',
         duration: '0.2',
         ease: "ease-in-out",
-      }, '0.320');
+      }, '0.100');
+    }
 
-      if (bottleType === 'water') {
-        bottleTimeline.to(canvasContainer, {
-          x: '-40%',
-          duration: '0.2',
-          ease: "ease-in-out",
-        }, '0.100');
-      }
+    bottleTimeline.to(canvasContainer, {
+      x: '-20%',
+      duration: '0.20',
+      ease: "ease-in-out",
+    }, '0.534');
 
-      bottleTimeline.to(canvasContainer, {
-        x: '-20%',
-        duration: '0.20',
-        ease: "ease-in-out",
-      }, '0.534');
-
-      bottleTimeline.to(canvasContainer, {
-        x: '80%',
-        duration: '0.20',
-        ease: "ease-in-out",
-      }, '0.838');
-
-    }, 50);
+    bottleTimeline.to(canvasContainer, {
+      x: '80%',
+      duration: '0.20',
+      ease: "ease-in-out",
+    }, '0.838');
 
     if (triggerTl) {
       triggerTl.scrollTrigger.kill();
