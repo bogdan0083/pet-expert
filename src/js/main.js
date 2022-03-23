@@ -599,7 +599,6 @@ document.addEventListener('DOMContentLoaded', function (e) {
       pinSpacing: false,
       onEnter: function (data) {
         gsap.set(data.pin, {position: 'fixed', top: 0, left: 0, width: '100%'});
-        console.log('entered');
         if (teamSwiper) {
           teamSwiper.update();
           teamSwiper.slideTo(0, 0, false);
@@ -660,7 +659,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
   function teamInfiniteSlides() {
     teamSwiper.slideToLoop(teamSlides.length);
     teamSwiper.once('transitionEnd', function () {
-      teamSwiper.slideToLoop(0, 0, false);
+      teamSwiper.slideToLoop(0, teamSwiper.params.speed, false);
       setTimeout(function () {
         teamInfiniteSlides();
       }, 0);
