@@ -128,9 +128,12 @@
     }
   }
   &.active {
-    border-color: transparent;
-    svg path {
+    border-color: $primary;
+    background-color: $primary;
+    .icon-fill {
       fill: white;
+    }
+    .icon-stroke {
       stroke: white;
     }
     span {
@@ -206,8 +209,13 @@
       font-size: 18px;
     }
   }
+
   .promo__choose-item-icon {
     height: 70px;
+  }
+
+  .promo__play-video-button {
+    display: none;
   }
 }
 
@@ -228,6 +236,23 @@
   }
 }
 
+@include down('xs') {
+  .promo__choose-item {
+    svg {
+      width: auto;
+      height: auto;
+      margin-right: 16px;
+    }
+  }
+  .promo__choose-item--2 {
+    span {
+      display: block;
+      margin-top: 1px;
+    }
+  }
+}
+
+
 @media screen and (max-height: 800px) and (min-width: map-get($grid-breakpoints, 'lg')) {
   .promo__choose-item {
     height: 100px;
@@ -235,6 +260,9 @@
     svg {
       max-width: 100%;
       max-height: 100%;
+    }
+    span {
+      margin-left: 4px;
     }
   }
   .promo__choose-item-icon {

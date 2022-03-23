@@ -317,6 +317,27 @@
   left: -10%;
 }
 
+@include down('xl') {
+  .promo-slide__title.big {
+    font-size: 80px;
+  }
+  .promo-slide__title {
+    font-size: 60px;
+  }
+  .promo-slide__title--small {
+    font-size: 46px;
+  }
+  .promo-slide__content-inner:before {
+    font-size: 600px;
+  }
+  .promo-slide__desc {
+    font-size: 24px;
+  }
+  .promo-slide__items ul li {
+    font-size: 18px;
+  }
+}
+
 @media screen and (max-width: 1400px) {
   .promo-slide__bg {
     max-width: 1411px;
@@ -367,7 +388,7 @@
     &:before {
       font-size: 400px;
       opacity: 1;
-      top: 0px;
+      top: 10px;
       transform: none;
       left: auto !important;
       right: 20px;
@@ -386,7 +407,7 @@
   }
 
   .promo-slide__content-inner:before {
-    top: -20px;
+    top: -10px;
   }
 
   .promo-slide-last .promo-slide__title {

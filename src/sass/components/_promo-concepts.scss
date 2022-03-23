@@ -228,6 +228,8 @@
     height: auto;
     .container {
       height: auto;
+      max-width: 100%;
+      padding-left: 24px;
       padding-right: 0;
     }
   }
