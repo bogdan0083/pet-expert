@@ -13936,6 +13936,7 @@ main .h2 span {
 }
 .promo-concepts-before-wave img {
   position: relative;
+  width: 100%;
   z-index: 3;
 }
 
@@ -13947,6 +13948,7 @@ main .h2 span {
 }
 .promo-concepts-after-wave img {
   margin-top: -80vw;
+  width: 100%;
   position: relative;
   z-index: 3;
   display: block;
@@ -14291,7 +14293,7 @@ main .h2 span {
   position: relative;
   z-index: 2;
   transform: none !important;
-  padding-top: 170px;
+  padding-top: 0;
   padding-bottom: 123px;
 }
 .team:after {
@@ -14304,12 +14306,13 @@ main .h2 span {
   height: 123px;
 }
 
+.team-top-pad {
+  height: 170px;
+}
+
 .team__slide {
-  width: 19.5%;
-  margin-right: -3.8%;
+  width: 16.6666%;
   position: relative;
-  padding-bottom: 123px;
-  margin-bottom: -123px;
 }
 
 .team__title {
@@ -14338,7 +14341,7 @@ main .h2 span {
   height: 123px;
   position: absolute;
   width: 100%;
-  bottom: 0;
+  bottom: -123px;
 }
 
 .team__slide-name {
@@ -14356,7 +14359,7 @@ main .h2 span {
   font-weight: 300;
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.7s 0.1s, transform 0.7s 0.1s;
+  transition: opacity 0.7s, transform 0.7s;
 }
 
 .team__slide.visible {
@@ -14366,6 +14369,14 @@ main .h2 span {
 .team__slide.visible .team__slide-name, .team__slide.visible .team__slide-job {
   opacity: 1;
   transform: none;
+}
+
+.team__slide.visible .team__slide-name {
+  transition-delay: 0s;
+}
+
+.team__slide.visible .team__slide-job {
+  transition-delay: 0.2s;
 }
 
 .team__slide.visible .team__img {
@@ -14394,7 +14405,7 @@ main .h2 span {
 }
 @media screen and (max-width: 992px) {
   .team {
-    padding-top: 60px;
+    padding-top: 74px;
   }
 
   .team__title {
@@ -14404,12 +14415,11 @@ main .h2 span {
   .team__slide {
     width: 30%;
     margin-right: 0;
-    padding-bottom: 74px;
-    margin-bottom: -74px;
   }
 
   .team__slide-content {
     height: 74px;
+    bottom: -74px;
   }
 
   .team__slide-name {

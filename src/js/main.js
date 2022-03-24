@@ -513,9 +513,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
         var imagesParallaxTimeline = gsap.timeline({
           scrollTrigger: {
             trigger: item,
-            start: 'bottom bottom-=40px',
+            start: 'bottom bottom',
             end: '+=100%',
-            scrub: 0.3,
+            scrub: 0,
+            immediateRender: false,
           }
         });
 
@@ -590,26 +591,16 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
     ScrollTrigger.create({
       trigger: lastPromoConceptsSection,
-      start: 'top bottom',
+      start: 'top top',
       endTrigger: teamSection,
       end: 'top top',
       pin: teamSection,
       pinSpacing: false,
       onEnter: function (data) {
         gsap.set(data.pin, {position: 'fixed', top: 0, left: 0, width: '100%'});
-        if (teamSwiper) {
-          teamSwiper.update();
-          teamSwiper.slideTo(0, 0, false);
-          teamInfiniteSlides();
-        }
       },
       onEnterBack: function (data) {
         gsap.set(data.pin, {position: 'fixed', top: 0, left: 0, width: '100%'});
-        if (teamSwiper) {
-          teamSwiper.update();
-          teamSwiper.slideTo(0, 0, false);
-          teamInfiniteSlides();
-        }
       },
       onLeaveBack: function (data) {
         gsap.set(data.pin, {position: 'relative', top: 0, left: 0, width: '100%'});
@@ -622,7 +613,10 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
   // Слайдер для секции "Команда"
   var teamSlides = document.querySelectorAll('.team__slide');
+  var teamSliderSpeed = 20000;
   var hoveredSlide = true;
+  var hoveredSlides = [];
+  var teamDurationAfterHover = null;
   teamSwiper = new Swiper('.team__slider', {
     slidesPerView: 2,
     loop: true,
@@ -632,10 +626,27 @@ document.addEventListener('DOMContentLoaded', function (e) {
     autoplay: {
       delay: 2000,
     },
-    freeModeMomentum: true,
+    freeModeMomentum: false,
     allowTouchMove: true,
     centeredSlides: true,
     slideToClickedSlide: true,
+    on: {
+      init: function (swiper) {
+        if (isDesktop) {
+
+          setTimeout(function () {
+            swiper.wrapperEl.classList.add('ease-linear');
+            teamInfiniteSlides(swiper);
+            swiper.el.addEventListener('mousemove', onTeamSliderMove);
+            swiper.el.addEventListener('mouseenter', onTeamSliderEnter);
+            swiper.el.addEventListener('mouseleave', onTeamSliderLeave);
+          }, 500);
+
+        } else if (isMobile || isTablet) {
+          // teamSwiper.el.addEventListener('click', onTeamSliderClick);
+        }
+      },
+    },
     breakpoints: {
       360: {
         slidesPerView: 3,
@@ -645,72 +656,109 @@ document.addEventListener('DOMContentLoaded', function (e) {
       },
       992: {
         centeredSlides: false,
-        slidesPerView: "auto",
-        loopedSlides: 7,
-        speed: 40000,
+        slidesPerView: 6,
+        autoplay: false,
+        speed: teamSliderSpeed,
+        allowTouchMove: true,
         slideToClickedSlide: false,
         freeModeMomentum: false,
-      }
+        watchSlidesVisibility: false,
+        watchSlidesProgress: true,
+      },
     },
   });
 
-  function teamInfiniteSlides() {
-    teamSwiper.slideToLoop(teamSlides.length);
-    teamSwiper.once('transitionEnd', function () {
-      teamSwiper.slideToLoop(0, teamSwiper.params.speed, false);
-      setTimeout(function () {
-        teamInfiniteSlides();
-      }, 0);
-    });
+  function teamInfiniteSlides(swiper) {
+    console.log('teamInfiniteSlides started');
+
+    console.log(swiper.activeIndex);
+    var speed = swiper.activeIndex !== 0 ? 12000 : teamSliderSpeed;
+    swiper.slideTo(swiper.slides.length, speed);
+    swiper.once('transitionEnd', onInfiniteSlideRepeat);
   }
 
+  function onInfiniteSlideRepeat(swiper) {
+
+    swiper.slideTo(0, 0);
+    setTimeout(function () {
+      teamInfiniteSlides(swiper);
+    }, 0);
+  }
 
   var onTeamSliderMove = function (e) {
+    var translate = teamSwiper.getTranslate();
+
     var newHoveredSlide = e.target.closest('.swiper-slide');
 
     // @TODO: this breaks when hovered multiple times
     if (newHoveredSlide && hoveredSlide !== newHoveredSlide) {
       hoveredSlide = newHoveredSlide;
 
+      var hoveredSlideIndex = hoveredSlide.dataset.swiperSlideIndex;
       var viewportOffset = hoveredSlide.getBoundingClientRect();
       var left = viewportOffset.left;
 
       // Если слайд еще не полностью в экране - игнорим
       if (left + 100 < 0) {
-        // var index = teamSwiper.slides.indexOf(hoveredSlide);
-        //
-        // teamSwiper.slideTo(index, 3000, false);
-        //
-        // teamSwiper.off('transitionEnd');
-        // teamSwiper.el.removeEventListener('mousemove', onTeamSliderMove);
         return;
       } else if ((left - 100 + hoveredSlide.clientWidth) >= window.innerWidth) {
-        // var index = teamSwiper.slides.indexOf(hoveredSlide);
-        // teamSwiper.slideTo(index, 3000, false);
-        // teamSwiper.off('transitionEnd');
-        // teamSwiper.el.removeEventListener('mousemove', onTeamSliderMove);
         return;
       }
 
-      var translate = teamSwiper.getTranslate();
-      teamSwiper.setTransition(0);
-      teamSwiper.setTranslate(translate);
+      teamSwiper.off('transitionEnd');
+
+      teamSwiper.wrapperEl.classList.remove('ease-linear');
+
+      teamSwiper.params.speed = 1000;
+      teamSwiper.params.allowTouchMove = true;
+
+      var hoveredSlidesWithDuplicates = teamSwiper.slides.filter(function (item) {
+        return item.dataset.swiperSlideIndex == hoveredSlideIndex;
+      });
 
       teamSwiper.slides.forEach(function (item) {
         item.classList.remove('visible');
       });
 
-      hoveredSlide.classList.add('visible');
+      hoveredSlidesWithDuplicates.forEach(function (i) {
+        i.classList.add('visible');
+      });
+
+      hoveredSlides = hoveredSlidesWithDuplicates;
     }
   };
 
+  var onTeamSliderEnter = function () {
+    if (teamSwiper) {
+      teamSwiper.off('transitionEnd', onInfiniteSlideRepeat);
+      var translate = teamSwiper.getTranslate();
+      teamSwiper.setTransition(0);
+      teamSwiper.setTranslate(translate);
+      teamSwiper.updateProgress(translate);
+      setTimeout(function () {
+        teamSwiper.setProgress(teamSwiper.progress);
+      }, 50);
+    }
+  }
   var onTeamSliderLeave = function () {
 
-    teamSwiper.slides.forEach(function (item) {
-      item.classList.remove('visible');
-    });
+    var translate = teamSwiper.getTranslate();
+    var maxTranslate = teamSwiper.maxTranslate();
 
-    teamInfiniteSlides();
+    teamSwiper.updateProgress(translate);
+    teamSwiper.params.speed = teamSliderSpeed;
+    teamSwiper.wrapperEl.classList.add('ease-linear');
+
+    var newSpeed = (teamSwiper.params.speed * (1 - teamSwiper.progress)).toFixed(0);
+
+    teamSwiper.translateTo(maxTranslate, parseInt(newSpeed));
+    teamSwiper.once('transitionEnd', onInfiniteSlideRepeat);
+    if (hoveredSlides && hoveredSlides.length > 0) {
+      hoveredSlides.forEach(function (i) {
+        i.classList.remove('visible');
+      });
+      hoveredSlides = [];
+    }
     hoveredSlide = false;
   };
 
@@ -723,31 +771,14 @@ document.addEventListener('DOMContentLoaded', function (e) {
       var slideWidth = newHoveredSlide.clientWidth;
       var left = viewportOffset.left;
 
-      teamSwiper.wrapperEl.classList.add('normal-easing');
-
       var translate = teamSwiper.getTranslate();
 
       teamSwiper.off('transitionEnd');
 
-      teamSwiper.loopFix();
       setTimeout(function () {
         // teamSwiper.slideTo(teamSwiper.clickedIndex, 1000, false);
       }, 300);
-
     }
-  }
-
-  if (isDesktop) {
-
-    // @TODO: init after pin-spacer wrap (if on desktop version)
-    teamSwiper.wrapperEl.classList.add('ease-linear');
-
-    teamInfiniteSlides();
-
-    teamSwiper.el.addEventListener('mousemove', onTeamSliderMove);
-    teamSwiper.el.addEventListener('mouseleave', onTeamSliderLeave);
-  } else if (isMobile || isTablet) {
-    // teamSwiper.el.addEventListener('click', onTeamSliderClick);
   }
 
   // Слайдер для секции "Партнеры"
